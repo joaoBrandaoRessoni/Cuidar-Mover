@@ -1,23 +1,49 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
 import { colors } from '../theme/colors'
+import Footer from '../components/Footer';
+import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
+
+const { height, width } = Dimensions.get('window');
 
 export const Login = () => {
-
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [feedback, setFeedback] = useState({
+        message: '',
+        type: 'error'
+    });
+
+    const handleSubmit = () => {
+        if (!senha && !email) {
+            setFeedback({
+                message: 'Campos vazios, digite o e-mail e senha para prosseguir.',
+                type: 'error'
+            });
+            return;
+        }
+
+        if (senha && email) {
+            setFeedback({
+                message: 'Login feito com sucesso.',
+                type: 'success'
+            });
+            return;
+        }
+
+        setFeedback({ message: '', type: 'error' });
+    };
 
     return (
-
         <ImageBackground
             source={require('../../assets/imagens/capa.png')}
             style={styles.background}
             resizeMode="cover"
         >
-
             <View style={styles.overlay}>
                 <View style={styles.top}>
                     <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} />
@@ -45,7 +71,7 @@ export const Login = () => {
 
                     <Button
                         title="Acessar"
-                        onPress={() => console.log('Clicou')}
+                        onPress={handleSubmit}
                         color={colors.greenPrimary}
                     />
                 </View>
@@ -61,6 +87,11 @@ export const Login = () => {
                         onPress={() => navigation.navigate("RecuperarAcesso")}
                     />
                 </View>
+                <FeedbackCard
+                    type={feedback.type}
+                    message={feedback.message}
+                />
+                <Footer />
             </View>
         </ImageBackground>
 
@@ -70,6 +101,8 @@ export const Login = () => {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
+        width: width,
+        height: height,
         justifyContent: 'center'
     },
     container: {
@@ -86,6 +119,7 @@ const styles = StyleSheet.create({
         gap: 24
     },
     top: {
+        paddingTop: 25,
         alignItems: 'center',
         gap: 10
     },
@@ -103,7 +137,7 @@ const styles = StyleSheet.create({
         color: colors.greenPrimary
     },
     rodape: {
-        paddingVertical: 50
+        paddingTop: 45
     },
     txt: {
         color: 'white',
