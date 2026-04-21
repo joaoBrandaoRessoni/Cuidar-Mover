@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native'
+import { View, Text, ImageBackground, Image, StyleSheet, Dimensions } from 'react-native'
 import { colors } from '../theme/colors'
 import Card from '../components/Card'
 import Input from '../components/Input'
 import Button from '../components/Button'
+import Footer from '../components/Footer'
 
+const { height, width } = Dimensions.get('window');
 
 export const RecuperarAcesso = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -34,7 +36,7 @@ export const RecuperarAcesso = ({ navigation }) => {
                     />
                 </View>
 
-                <View style={{ gap: 15, paddingVertical: 20 }}>
+                <View style={{ gap: 15, paddingVertical: 20 }}  >
                     <Input
                         placeholder="E-mail"
                         value={email}
@@ -66,6 +68,8 @@ export const RecuperarAcesso = ({ navigation }) => {
                         color={colors.greenPrimary}
                     />
                 </View>
+
+                {/* <Footer /> */}
             </View>
         </ImageBackground>
     )
@@ -74,7 +78,8 @@ export const RecuperarAcesso = ({ navigation }) => {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-
+        width: width,
+        height: height,
     },
     container: {
         flex: 1,
@@ -83,16 +88,12 @@ const styles = StyleSheet.create({
     },
     top: {
         alignItems: 'center',
-        gap: 0
     },
-    // overlay: {
-    // //    ...StyleSheet.absoluteFillObject,
-    //     backgroundColor: 'rgba(0,0,0,0.25)',
-    //     flex: 1,                    // garante que ocupa exatamente a tela
-    //     overflow: 'hidden',         // impede que filhos "vazem" para fora
-    //     justifyContent: 'space-between',  // distribui o espaço verticalmente
-    //     paddingVertical: 20,        // respiro nas bordas
-    // },
+    overlay: {
+        backgroundColor: 'rgba(0,0,0,0.25)',
+        flex: 1,
+        overflow: 'hidden',
+    },
     titulo: {
         fontSize: 20,
         fontWeight: 700,
@@ -104,5 +105,8 @@ const styles = StyleSheet.create({
         color: colors.font,
         paddingVertical: 10,
         textAlign: 'center'
-    }
+    },
+    logo: {
+        marginTop: 0
+    },
 })
