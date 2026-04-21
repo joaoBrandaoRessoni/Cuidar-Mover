@@ -9,10 +9,11 @@ import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
 
 const { height, width } = Dimensions.get('window');
 
-export const Login = () => {
+export const Cadastrar = () => {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [confirmeSenha, setConfirmeSenha] = useState('');
     const [feedback, setFeedback] = useState({
         message: '',
         type: 'error'
@@ -21,7 +22,15 @@ export const Login = () => {
     const handleSubmit = () => {
         if (!senha && !email) {
             setFeedback({
-                message: 'Campos vazios, digite o e-mail e senha para prosseguir.',
+                message: 'Campos vazios, preencha os campos para prosseguir.',
+                type: 'error'
+            });
+            return;
+        }
+
+        if (senha !== confirmeSenha) {
+            setFeedback({
+                message: 'As senhas são diferentes. Tente novamente',
                 type: 'error'
             });
             return;
@@ -47,7 +56,7 @@ export const Login = () => {
             <View style={styles.overlay}>
                 <View style={styles.top}>
                     <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} />
-                    <Text style={styles.titulo}>Acesse sua conta</Text>
+                    <Text style={styles.titulo}>Cadastre sua conta</Text>
                 </View>
 
                 <View style={styles.viewLogin}>
@@ -65,40 +74,41 @@ export const Login = () => {
                         value={senha}
                         onChangeText={setSenha}
                         secureTextEntry={true}
-
                     />
 
-                    <View style={{ alignItems: 'flex-end', paddingHorizontal: 35 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("ResetarSenha")}>
-                            <Text style={styles.txtVerde}>Recuperar Senha</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Input
+                        placeholder="Confirme sua senha"
+                        iconName="lock-closed-outline"
+                        value={confirmeSenha}
+                        onChangeText={setConfirmeSenha}
+                        secureTextEntry={true}
+                    />
 
                     <Button
-                        title="Acessar"
+                        title="Cadastrar"
                         onPress={handleSubmit}
                         color={colors.greenPrimary}
                     />
                 </View>
 
-                <View style={styles.rodape}>
-                    <Text style={styles.txt}>Não possui uma conta?</Text>
-                    <Button
-                        title="Criar Conta"
-                        color="transparent"
-                        borderColor={colors.greenPrimary}
-                        textColor={colors.greenPrimary}
-                        onPress={() => navigation.navigate("Cadastrar")}
-                    />
-                </View>
+                
                 <FeedbackCard
                     type={feedback.type}
                     message={feedback.message}
                 />
 
-            </View>
+                <View style={styles.rodape}>
+                    <Text style={styles.txt}>Já possui conta?</Text>
+                    <Button
+                        title="Voltar para o login"
+                        onPress={() => navigation.navigate('Login')}
+                        color="transparent"
+                        borderColor={colors.greenPrimary}
+                        textColor={colors.greenPrimary}
+                    />
+                </View>
 
-            <Footer />
+            </View>
         </ImageBackground>
 
     )
@@ -125,12 +135,12 @@ const styles = StyleSheet.create({
         gap: 24
     },
     top: {
-        paddingTop: 25,
+        paddingTop: 10,
         alignItems: 'center',
         gap: 10
     },
     logo: {
-        marginTop: 45
+        marginTop: 20
     },
     titulo: {
         fontSize: 20,
@@ -143,7 +153,7 @@ const styles = StyleSheet.create({
         color: colors.greenPrimary
     },
     rodape: {
-        paddingTop: 45
+        paddingTop: 25
     },
     txt: {
         color: 'white',

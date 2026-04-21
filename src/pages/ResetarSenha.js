@@ -61,6 +61,7 @@ export const ResetarSenha = ({ navigation }) => {
         <View style={{ gap: 15, paddingVertical: 20 }}>
           <Input
             placeholder="E-mail"
+            iconName="lock-closed-outline"
             value={email}
             onChangeText={setEmail}
             keyboardType={"email-address"}
@@ -79,6 +80,8 @@ export const ResetarSenha = ({ navigation }) => {
           <Card
             title="DICA DE SEGURANÇA"
             text="Por motivos de segurança o código expira em 15 minutos. Verifique sua caixa de spam caso não receba o e-mail em instantes."
+            icon="information-circle"
+            color={colors.greenPrimary}
           />
         </View>
 
