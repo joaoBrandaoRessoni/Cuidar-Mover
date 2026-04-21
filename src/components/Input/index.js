@@ -7,6 +7,8 @@ export default function Input({
   value,
   onChangeText,
   style,
+  keyboardType,
+  secureTextEntry,
   ...rest
 }) {
   return (
@@ -17,6 +19,8 @@ export default function Input({
         placeholderTextColor={colors.font}
         value={value}
         onChangeText={onChangeText}
+        keyboardType={keyboardType ?? "default"}
+        secureTextEntry={secureTextEntry}
         {...rest}
       />
     </View>

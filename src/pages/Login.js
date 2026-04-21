@@ -55,16 +55,18 @@ export const Login = () => {
                         placeholder="E-mail"
                         value={email}
                         onChangeText={setEmail}
+                        keyboardType={"email-address"}
                     />
 
                     <Input
                         placeholder="Senha"
                         value={senha}
                         onChangeText={setSenha}
+                        secureTextEntry={true}
                     />
 
                     <View style={{ alignItems: 'flex-end', paddingHorizontal: 35 }}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("ResetarSenha")}>
                             <Text style={styles.txtVerde}>Recuperar Senha</Text>
                         </TouchableOpacity>
                     </View>

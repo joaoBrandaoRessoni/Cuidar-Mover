@@ -5,6 +5,7 @@ import Card from '../components/Card'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
+import FeedbackCard from '../components/FeedbackCard/FeedbackCard'
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,6 +14,42 @@ export const RecuperarAcesso = ({ navigation }) => {
     const [senha, setSenha] = useState('');
     const [codigo, setCodigo] = useState('');
     const [confirmeSenha, setConfirmeSenha] = useState('');
+    const [feedback, setFeedback] = useState({
+        message: '',
+        type: 'error'
+    });
+    
+    const handleSubmit = () => {
+        if (!senha || !email || !codigo || !confirmeSenha) {
+            setFeedback({
+                message: 'Campos vazios, todos os campos devem estar preenchidos.',
+                type: 'error'
+            });
+            
+            return;
+        }
+
+        if (senha != confirmeSenha) {
+            setFeedback({
+                message: 'Ambas as senhas digitadas precisam ser iguais',
+                type: 'error'
+            });
+            return;
+        }
+
+        if (senha && confirmeSenha) {
+            setFeedback({
+                message: 'Senha alterada com sucesso.',
+                type: 'success'
+            });
+            setTimeout(() => {
+                navigation.navigate("Login")
+            }, 1500);
+            return;
+        }
+
+        setFeedback({ message: '', type: 'error' });
+    };
 
     return (
         <ImageBackground
@@ -41,6 +78,7 @@ export const RecuperarAcesso = ({ navigation }) => {
                         placeholder="E-mail"
                         value={email}
                         onChangeText={setEmail}
+                        keyboardType={"email-address"}
                     />
                     <Input
                         placeholder="Código de verificação"
@@ -52,22 +90,29 @@ export const RecuperarAcesso = ({ navigation }) => {
                         placeholder="Senha"
                         value={senha}
                         onChangeText={setSenha}
+                        secureTextEntry={true}
                     />
 
                     <Input
                         placeholder="Confirmar senha"
                         value={confirmeSenha}
                         onChangeText={setConfirmeSenha}
+                        secureTextEntry={true}
                     />
                 </View>
 
                 <View>
                     <Button
                         title="Atualizar Senha"
-                        onPress={() => console.log('Clicou')}
+                        onPress={handleSubmit}
                         color={colors.greenPrimary}
                     />
                 </View>
+
+                <FeedbackCard
+                    type={feedback.type}
+                    message={feedback.message}
+                />
 
                 {/* <Footer /> */}
             </View>

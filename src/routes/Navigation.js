@@ -35,7 +35,17 @@ export default function Navigation() {
             <Stack.Screen
                 name='ResetarSenha'
                 component={ResetarSenha}
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: true,
+                    title: "UNIFAE CARE", 
+                    headerStyle: {
+                        backgroundColor: colors.grayLight, 
+                    },
+                    headerTintColor: colors.greenPrimary,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
             />
         </Stack.Navigator>
     )
