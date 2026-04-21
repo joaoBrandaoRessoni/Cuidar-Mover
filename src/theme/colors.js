@@ -1,5 +1,7 @@
 export const colors = {
     greenPrimary: '#00875F',
-    grayLight: '',
-    font: '#9CA3AF'
+    fundo: '#0a0a0aa8',
+    font: '#9CA3AF',
+    grayLight: '#dcdcdc'
+
 }

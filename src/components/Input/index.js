@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35
   },
   input: {
-    backgroundColor: '#0a0a0aa8',
-    borderWidth: 1,
- //   borderColor: colors.greenPrimary,
+    backgroundColor: colors.fundo,
+   // borderWidth: 0.2,
+    //borderColor: colors.greenPrimary,
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 16,

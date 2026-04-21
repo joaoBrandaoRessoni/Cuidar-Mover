@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
 import { colors } from '../theme/colors'
@@ -37,7 +38,9 @@ export const Login = () => {
                     />
 
                     <View style={{ alignItems: 'flex-end', paddingHorizontal: 35 }}>
-                        <Text style={styles.txtVerde}>Recuperar Senha</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.txtVerde}>Recuperar Senha</Text>
+                        </TouchableOpacity>
                     </View>
 
                     <Button
@@ -55,6 +58,7 @@ export const Login = () => {
                         color="transparent"
                         borderColor={colors.greenPrimary}
                         textColor={colors.greenPrimary}
+                        onPress={() => navigation.navigate("RecuperarAcesso")}
                     />
                 </View>
             </View>
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.25)', // controla a escuridão aqui
+        backgroundColor: 'rgba(0,0,0,0.25)', // controla a escuridão 
     },
 
     viewLogin: {
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 20,
         fontWeight: 700,
-        color: '#dcdcdc',
+        color: colors.grayLight,
         textAlign: 'center',
         paddingVertical: 25
     },
