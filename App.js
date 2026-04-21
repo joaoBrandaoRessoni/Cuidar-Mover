@@ -3,13 +3,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Navigation from './src/routes/Navigation';
+import { RecuperarAcesso } from './src/pages/RecuperarAcesso';
 
 const Stack = createStackNavigator();
 
 export default function App() {
     return (
         <NavigationContainer>
-            <Navigation />
+            {/* <Navigation /> */}
+            <RecuperarAcesso />
         </NavigationContainer>
     );
 }
