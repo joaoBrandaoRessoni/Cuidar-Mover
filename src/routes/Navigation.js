@@ -4,6 +4,7 @@ import { Login } from '../pages/Login';
 import { RecuperarAcesso } from '../pages/RecuperarAcesso';
 import { ResetarSenha } from '../pages/ResetarSenha';
 import { colors } from '../theme/colors';
+import { Cadastrar } from '../pages/Cadastrar';
 
 const Stack = createStackNavigator();
 
@@ -21,9 +22,9 @@ export default function Navigation() {
                 component={RecuperarAcesso}
                 options={{
                     headerShown: true,
-                    title: "UNIFAE CARE", 
+                    title: "UNIFAE CARE",
                     headerStyle: {
-                        backgroundColor: colors.grayLight, 
+                        backgroundColor: colors.grayLight,
                     },
                     headerTintColor: colors.greenPrimary,
                     headerTitleStyle: {
@@ -37,9 +38,25 @@ export default function Navigation() {
                 component={ResetarSenha}
                 options={{
                     headerShown: true,
-                    title: "UNIFAE CARE", 
+                    title: "UNIFAE CARE",
                     headerStyle: {
-                        backgroundColor: colors.grayLight, 
+                        backgroundColor: colors.grayLight,
+                    },
+                    headerTintColor: colors.greenPrimary,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }}
+            />
+
+            <Stack.Screen
+                name='Cadastrar'
+                component={Cadastrar}
+                options={{
+                    headerShown: true,
+                    title: "UNIFAE CARE",
+                    headerStyle: {
+                        backgroundColor: colors.grayLight,
                     },
                     headerTintColor: colors.greenPrimary,
                     headerTitleStyle: {
