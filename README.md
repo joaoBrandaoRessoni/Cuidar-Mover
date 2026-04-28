@@ -4,7 +4,7 @@ Aplicação desenvolvida com o objetivo de facilitar o acesso a serviços de sa�
 
 ### 📱 Sobre o Projeto
 
-O Cuidar & Mover é um aplicativo mobile focado na área da saúde, especialmente em cuidados físicos e reabilitação. A proposta é centralizar informações e funcionalidades que auxiliem usuários a encontrar profissionais e gerenciar seus cuidados.
+O Cuidar & Mover é um aplicativo mobile focado na área da saúde, especialmente em cuidados físicos e reabilitação. A proposta é centralizar informações e funcionalidades que auxiliem usuários a fazer os exercícios propostos pelos fisioterapeutas em casa e gerenciar seus cuidados.
 
 ### 🛠️ Tecnologias Utilizadas
 * React Native
