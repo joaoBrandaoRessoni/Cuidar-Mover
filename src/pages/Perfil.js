@@ -1,11 +1,47 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from "../theme/colors";
 import Button from "../components/Button";
 import MetaSemanal from "../components/MetaModal";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 
 export const Perfil = () => {
+    const [profile, setProfile] = useState({name: "", email: "", percentCompleted: 0})
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        const getProfile = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/app/home/profile`
+                );
+
+                setProfile({
+                    name: response.data.profile.name, 
+                    email: response.data.profile.email, 
+                    percentCompleted: response.data.weeklyProgress.percentCompleted
+                })
+
+            } catch (error) {
+                console.log("Erro ao buscar perfil:", error);
+                console.log("Mensagem:", error.message);
+
+                if (error.response) {
+                    console.log("Status:", error.response.status);
+                    console.log("Resposta backend:", error.response.data);
+                } else if (error.request) {
+                    console.log("Sem resposta do servidor.");
+                } else {
+                    console.log("Erro inesperado.");
+                }
+            }
+        };
+
+        getProfile();
+    }, [isFocused]);
 
     const config = [
         { id: 1, iconName: 'alarm-outline', title: 'Lembretes', iconeDireita: 'chevron-forward' },
@@ -39,7 +75,7 @@ export const Perfil = () => {
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.name}>Carolina Ribeiro</Text>
+                <Text style={styles.name}>{profile.name}</Text>
 
             </View>
 
@@ -60,7 +96,7 @@ export const Perfil = () => {
                 </View>
             </View>
 
-            <MetaSemanal />
+            <MetaSemanal progresso={profile.percentCompleted} />
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Configurações e Suporte</Text>

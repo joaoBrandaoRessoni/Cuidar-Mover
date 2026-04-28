@@ -24,11 +24,16 @@ export const Login = () => {
 useEffect(() => {
     const getAppId = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/apps`,
-        );
+        const id = await AsyncStorage.getItem("appId")
 
-        await AsyncStorage.setItem("appId", String(response.data[0].id));
+        if(!id){
+          const response = await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/apps`,
+          );
+
+          await AsyncStorage.setItem("appId", String(response.data[0].id));
+        }
+        
       } catch (error) {
         console.log("Erro ao buscar appId:", error);
         console.log("Mensagem:", error.message);
@@ -39,7 +44,16 @@ useEffect(() => {
       }
     };
 
+    const verifyIfLogedIn = async () => {
+      const token = await AsyncStorage.getItem("access_token")
+
+      if(token){
+        navigation.navigate("Home")
+      }
+    }
+
     getAppId();
+    verifyIfLogedIn();
   }, []);
 
   const handleSubmit = async () => {
@@ -67,6 +81,8 @@ useEffect(() => {
 
         AsyncStorage.setItem("access_token", response.data.access_token);
         AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+
+        navigation.navigate("Home")
 
         setFeedback({
           message: "Login feito com sucesso.",
