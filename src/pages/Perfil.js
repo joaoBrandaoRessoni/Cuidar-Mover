@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Image, View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from "../theme/colors";
 import Button from "../components/Button";
@@ -8,7 +8,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
-export const Perfil = () => {
+export const Perfil = ({ navigation }) => {
     const [profile, setProfile] = useState({name: "", email: "", percentCompleted: 0})
     const isFocused = useIsFocused();
 
@@ -43,6 +43,12 @@ export const Perfil = () => {
         getProfile();
     }, [isFocused]);
 
+    const logout = async () => {
+        await AsyncStorage.removeItem("access_token")
+
+        navigation.navigate("Login")
+    }
+
     const config = [
         { id: 1, iconName: 'alarm-outline', title: 'Lembretes', iconeDireita: 'chevron-forward' },
         { id: 2, iconName: 'notifications-outline', title: 'Notificações', iconeDireita: 'chevron-forward' },
@@ -61,58 +67,60 @@ export const Perfil = () => {
     ));
 
     return (
-        <View style={styles.container}>
+        <ScrollView>
+            <View style={styles.container}>
 
-            {/* PERFIL */}
-            <View style={styles.profileContainer}>
-                <View style={styles.imageWrapper}>
-                    <Image
-                        source={require('../../assets/imagens/fotoPerfil.png')}
-                        style={styles.image}
-                    />
-                    <TouchableOpacity style={styles.editButton}>
-                        <Ionicons name="pencil" size={16} color="#fff" />
-                    </TouchableOpacity>
+                {/* PERFIL */}
+                <View style={styles.profileContainer}>
+                    <View style={styles.imageWrapper}>
+                        <Image
+                            source={require('../../assets/imagens/fotoPerfil.png')}
+                            style={styles.image}
+                        />
+                        <TouchableOpacity style={styles.editButton}>
+                            <Ionicons name="pencil" size={16} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+
+                    <Text style={styles.name}>{profile.name}</Text>
+
                 </View>
 
-                <Text style={styles.name}>{profile.name}</Text>
+
+                <View style={styles.cards}>
+                    <View style={styles.card}>
+                        <Ionicons name="checkmark-circle-outline" size={24} color={colors.greenPrimary} />
+                        <Text style={styles.cardText}>24 sessões realizadas</Text>
+                    </View>
+
+                    <View style={styles.card}>
+                        <Ionicons name="calendar-outline" size={24} color={colors.greenPrimary} />
+                        <Text style={styles.cardText}>Próxima sessão</Text>
+                    </View>
+                    <View style={styles.card}>
+                        <Ionicons name="body-outline" size={24} color={colors.greenPrimary} />
+                        <Text style={styles.cardText}>Especialistas Ortopédicos</Text>
+                    </View>
+                </View>
+
+                <MetaSemanal progresso={profile.percentCompleted} />
+
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Configurações e Suporte</Text>
+
+                    <View style={styles.list}>
+                        {config.map((item) => (
+                            <ItemTabela key={item.id} {...item} />
+                        ))}
+                    </View>
+                </View>
+
+                <Text style={styles.version}>Versão 1.0.0</Text>
+
+                <Button title="Sair" onPress={logout} />
 
             </View>
-
-
-            <View style={styles.cards}>
-                <View style={styles.card}>
-                    <Ionicons name="checkmark-circle-outline" size={24} color={colors.greenPrimary} />
-                    <Text style={styles.cardText}>24 sessões realizadas</Text>
-                </View>
-
-                <View style={styles.card}>
-                    <Ionicons name="calendar-outline" size={24} color={colors.greenPrimary} />
-                    <Text style={styles.cardText}>Próxima sessão</Text>
-                </View>
-                <View style={styles.card}>
-                    <Ionicons name="body-outline" size={24} color={colors.greenPrimary} />
-                    <Text style={styles.cardText}>Especialistas Ortopédicos</Text>
-                </View>
-            </View>
-
-            <MetaSemanal progresso={profile.percentCompleted} />
-
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Configurações e Suporte</Text>
-
-                <View style={styles.list}>
-                    {config.map((item) => (
-                        <ItemTabela key={item.id} {...item} />
-                    ))}
-                </View>
-            </View>
-
-            <Text style={styles.version}>Versão 1.0.0</Text>
-
-            <Button title="Sair" />
-
-        </View>
+        </ScrollView>
     );
 };
 
