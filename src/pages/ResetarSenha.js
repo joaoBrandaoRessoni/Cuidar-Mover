@@ -12,6 +12,7 @@ import Input from "../components/Input";
 import { useState } from "react";
 import Button from "../components/Button";
 import FeedbackCard from "../components/FeedbackCard/FeedbackCard";
+import axios from "axios";
 
 const { height, width } = Dimensions.get("window");
 
@@ -22,7 +23,7 @@ export const ResetarSenha = ({ navigation }) => {
     type: "error",
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email) {
       setFeedback({
         message: "Campo vazio, digite o e-mail para prosseguir.",
@@ -33,7 +34,28 @@ export const ResetarSenha = ({ navigation }) => {
 
     setFeedback({ message: "", type: "error" });
 
-    navigation.navigate("RecuperarAcesso");
+    try {
+      const response = await axios.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/forgot-password`,
+        {
+          email: email,
+        },
+      );
+
+      navigation.navigate("RecuperarAcesso");
+    } catch (error) {
+
+      let mensagemErro = "Erro ao solicitar recuperação de acesso.";
+
+      if (error.response?.data?.message) {
+        mensagemErro = error.response.data.message;
+      }
+
+      setFeedback({
+        message: mensagemErro,
+        type: "error",
+      });
+    }
   };
 
   return (

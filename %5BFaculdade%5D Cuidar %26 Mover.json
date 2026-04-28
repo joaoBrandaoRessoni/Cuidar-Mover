@@ -1,0 +1,277 @@
+{
+  "uuid": "fd77c56a-cb16-4c54-86ef-493d6b84614e",
+  "lastMigration": 33,
+  "name": "[Faculdade] Cuidar & Mover",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3004,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "be454f84-0267-4723-ac9e-cd62d364c37c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/auth/apps",
+      "responses": [
+        {
+          "uuid": "5776a439-ebc7-45d6-8880-e974894336ea",
+          "body": "[\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Unifae Care - Fisioterapia\"\r\n  }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "bd9f593d-f79a-4d35-9b05-8a2cc83c1db1",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/v1/auth/login",
+      "responses": [
+        {
+          "uuid": "29d8420f-b9e7-4216-99a9-984b9b52512b",
+          "body": "{\n  \"access_token\": \"{{objectId '54495ad94c934721ede76d90'}}\",\n  \"user\": {\n    \"id\": \"{{int 1 100}}\",\n    \"name\": \"{{firstName}} {{lastName}}\",\n    \"email\": \"{{email}}\",\n    \"role\": \"PATIENT\",\n    \"appId\": 1,\n    \"courseId\": 1,\n    \"nextVisitDate\": \"{{date '2026-05-01' '2026-06-30' \"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\"}}\"\n  },\n  \"consertRequired\": null\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "36896901-0395-4c47-94c9-6540bcdbc466",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/v1/auth/forgot-password",
+      "responses": [
+        {
+          "uuid": "3778b24e-8a47-4566-a9f7-ef6958f0084e",
+          "body": "{\n  \"message\": \"Enviamos um código de 8 caracteres para o e-mail informado. Use-o junto com a nova senha para concluir.\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "40eead99-48c2-4890-9ae7-ecc69762005a",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/v1/auth/reset-password",
+      "responses": [
+        {
+          "uuid": "73c84f82-ab74-4888-a56a-ecf605b5d56f",
+          "body": "{\n  \"message\": \"Senha alterada com sucesso. Faça login com a nova senha.\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "0a210e65-1488-4f57-92cd-5aca2183e5e4",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/v1/auth/consent/accept",
+      "responses": [
+        {
+          "uuid": "99fea264-fa7c-4036-bb60-b4ab0fffb48b",
+          "body": "{\n  \"message\": \"Consentimento registrado com sucesso.\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": true,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "7302a908-0438-4198-b66e-8c77ddcdf6a2",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/v1/app/home/profile",
+      "responses": [
+        {
+          "uuid": "c7491e15-75c8-40c1-8c30-44345d1d2e64",
+          "body": "{\r\n  \"profile\": {\r\n    \"id\": 5,\r\n    \"name\": \"Maria Aparecida Souza\",\r\n    \"email\": \"paciente1@unifae.local\",\r\n    \"role\": \"PATIENT\",\r\n    \"photoUrl\": null\r\n  },\r\n  \"app\": {\r\n    \"id\": 1,\r\n    \"name\": \"Unifae Care - Fisioterapia\"\r\n  },\r\n  \"course\": {\r\n    \"id\": 1,\r\n    \"name\": \"Fisioterapia\"\r\n  },\r\n  \"responsibleStudent\": {\r\n    \"id\": 4,\r\n    \"name\": \"Aluno André Lucas\",\r\n    \"email\": \"aluno@unifae.local\",\r\n    \"photoUrl\": null\r\n  },\r\n  \"coordinator\": {\r\n    \"id\": 2,\r\n    \"name\": \"Coord. Vanessa\",\r\n    \"email\": \"coordenador@unifae.local\",\r\n    \"photoUrl\": null\r\n  },\r\n  \"weeklyProgress\": {\r\n    \"from\": \"2026-04-20\",\r\n    \"to\": \"2026-04-27\",\r\n    \"prescribedExercises\": 2,\r\n    \"completedExercises\": 0,\r\n    \"percentCompleted\": 0\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "be454f84-0267-4723-ac9e-cd62d364c37c"
+    },
+    {
+      "type": "route",
+      "uuid": "bd9f593d-f79a-4d35-9b05-8a2cc83c1db1"
+    },
+    {
+      "type": "route",
+      "uuid": "36896901-0395-4c47-94c9-6540bcdbc466"
+    },
+    {
+      "type": "route",
+      "uuid": "40eead99-48c2-4890-9ae7-ecc69762005a"
+    },
+    {
+      "type": "route",
+      "uuid": "0a210e65-1488-4f57-92cd-5aca2183e5e4"
+    },
+    {
+      "type": "route",
+      "uuid": "7302a908-0438-4198-b66e-8c77ddcdf6a2"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

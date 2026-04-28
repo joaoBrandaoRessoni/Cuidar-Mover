@@ -6,6 +6,7 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import Footer from '../components/Footer'
 import FeedbackCard from '../components/FeedbackCard/FeedbackCard'
+import axios from 'axios'
 
 const { height, width } = Dimensions.get('window');
 
@@ -19,7 +20,7 @@ export const RecuperarAcesso = ({ navigation }) => {
         type: 'error'
     });
     
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!senha || !email || !codigo || !confirmeSenha) {
             setFeedback({
                 message: 'Campos vazios, todos os campos devem estar preenchidos.',
@@ -37,15 +38,49 @@ export const RecuperarAcesso = ({ navigation }) => {
             return;
         }
 
-        if (senha && confirmeSenha) {
-            setFeedback({
-                message: 'Senha alterada com sucesso.',
-                type: 'success'
-            });
-            setTimeout(() => {
-                navigation.navigate("Login")
-            }, 1500);
-            return;
+        if (senha && confirmeSenha && codigo) {
+            try {
+                const response = await axios.post(
+                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/reset-password`,
+                    {
+                        email: email,
+                        code: codigo,
+                        password: senha,
+                        confirmPassword: confirmeSenha
+                    }
+                );
+
+                setFeedback({
+                    message: response.data.message,
+                    type: 'success'
+                });
+
+                setTimeout(() => {
+                    navigation.navigate("Login");
+                }, 1500);
+
+                return;
+
+            } catch (error) {
+                if (error.response) {
+                    setFeedback({
+                        message: error.response.data?.message || 'Erro ao alterar senha.',
+                        type: 'error'
+                    });
+
+                } else if (error.request) {
+                    setFeedback({
+                        message: 'Servidor não respondeu.',
+                        type: 'error'
+                    });
+
+                } else {
+                    setFeedback({
+                        message: 'Erro inesperado.',
+                        type: 'error'
+                    });
+                }
+            }
         }
 
         setFeedback({ message: '', type: 'error' });
