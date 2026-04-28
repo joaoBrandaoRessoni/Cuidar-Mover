@@ -54,10 +54,10 @@ function MainTabNavigator() {
                 tabBarInactiveTintColor: colors.font
             })}
         >
-            <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home} />
-            <Tab.Screen name='Agenda' component={Agenda} />
-            <Tab.Screen name='Progresso' component={Progresso} />
-            <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} />
+            <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home}  options={{ headerShown: false }} />
+            <Tab.Screen name='Agenda' component={Agenda}   options={{ headerShown: false }}/>
+            <Tab.Screen name='Progresso' component={Progresso}  options={{ headerShown: false }} />
+            <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }}  options={{ headerShown: false }} />
         </Tab.Navigator>
     )
 }
@@ -67,14 +67,14 @@ export default function Navigation() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
                 name='Login'
-                component={MainTabNavigator}
+                component={Login}
                 options={{ headerShown: false }}
             />
 
             <Stack.Screen
                 name='Home'
-                component={Home}
-                options={{ headerShown: true }}
+                component={MainTabNavigator}
+                options={{ headerShown: false }}
             />
 
             <Stack.Screen
