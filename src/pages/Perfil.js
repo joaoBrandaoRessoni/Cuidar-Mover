@@ -45,6 +45,12 @@ export const Perfil = ({ navigation }) => {
         getProfile();
     }, [isFocused]);
 
+    const logout = async () => {
+        await AsyncStorage.removeItem("access_token")
+
+        navigation.navigate("Login")
+    }
+
     const config = [
         { id: 1, iconName: 'alarm-outline', title: 'Lembretes', iconeDireita: 'chevron-forward' },
         { id: 2, iconName: 'notifications-outline', title: 'Notificações', iconeDireita: 'chevron-forward' },
@@ -113,7 +119,7 @@ export const Perfil = ({ navigation }) => {
 
                 <Text style={styles.version}>Versão 1.0.0</Text>
 
-                <Button title="Sair" />
+                <Button title="Sair" onPress={logout} />
 
             </View>
         </ScrollView>
