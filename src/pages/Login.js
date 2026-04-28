@@ -53,7 +53,7 @@ useEffect(() => {
 
     if (senha && email) {
       try {
-        const appId = AsyncStorage.getItem("appId");
+        const appId = await AsyncStorage.getItem("appId");
 
         const response = await axios.post(
           `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/login`,
