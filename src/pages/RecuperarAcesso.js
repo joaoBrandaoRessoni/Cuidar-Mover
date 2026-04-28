@@ -105,24 +105,29 @@ export const RecuperarAcesso = ({ navigation }) => {
                     <Card
                         title="DICA DE SEGURANÇA"
                         text="Use ao menos 8 caracteres, incluindo letras maiúsculas, números, e um símbolo especial."
+                        icon='shield-checkmark'
+                        color={colors.greenPrimary}
                     />
                 </View>
 
                 <View style={{ gap: 15, paddingVertical: 20 }}  >
                     <Input
                         placeholder="E-mail"
+                        iconName="mail-outline"
                         value={email}
                         onChangeText={setEmail}
                         keyboardType={"email-address"}
                     />
                     <Input
                         placeholder="Código de verificação"
+                        iconName="key-outline"
                         value={codigo}
                         onChangeText={setCodigo}
                     />
 
                     <Input
                         placeholder="Senha"
+                        iconName="lock-closed-outline"
                         value={senha}
                         onChangeText={setSenha}
                         secureTextEntry={true}
@@ -130,6 +135,7 @@ export const RecuperarAcesso = ({ navigation }) => {
 
                     <Input
                         placeholder="Confirmar senha"
+                        iconName="lock-closed-outline"
                         value={confirmeSenha}
                         onChangeText={setConfirmeSenha}
                         secureTextEntry={true}

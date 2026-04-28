@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import { colors } from "../theme/colors";
-import Footer from "../components/Footer";
-import FeedbackCard from "../components/FeedbackCard/FeedbackCard";
+
+import { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import Button from '../components/Button'
+import Input from '../components/Input'
+import { colors } from '../theme/colors'
+import Footer from '../components/Footer';
+import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -28,7 +21,7 @@ export const Login = () => {
     type: "error",
   });
 
-  useEffect(() => {
+useEffect(() => {
     const getAppId = async () => {
       try {
         const response = await axios.get(

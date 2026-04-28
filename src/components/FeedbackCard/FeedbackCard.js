@@ -29,7 +29,7 @@ export default function FeedbackCard({ type = 'error', message }) {
   const current = config[type];
 
   return (
-    <View style={{paddingHorizontal: 35}}>
+    <View style={{paddingHorizontal: 35, paddingVertical: 10}}>
         <View style={[styles.container, { backgroundColor: current.bg, borderLeftColor: current.border }]}>
           <Ionicons name={current.icon} size={22} color={current.color} />
           <Text style={[styles.text, { color: current.color }]}>

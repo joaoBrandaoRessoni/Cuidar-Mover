@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import { colors } from "../../theme/colors";
 
-export default function Footer(){
-    return(
+export default function Footer() {
+    return (
         <View style={styles.container}>
             <View style={styles.viewPtCima}>
                 <Text style={styles.texto}>PRIVACIDADE</Text>
@@ -20,19 +20,20 @@ export default function Footer(){
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        bottom: 20
+        bottom: 20,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     viewPtCima: {
-        justifyContent: 'space-between',
         flexDirection: 'row',
-        paddingHorizontal: 45,
-        paddingVertical: 10
+        justifyContent: 'center',
+        gap: 20
     },
     viewPtBaixo: {
-        paddingHorizontal: 40,
-        alignItems:'center'
+        alignItems: 'center'
     },
-    texto:{
+    texto: {
         color: colors.grayLight,
         fontSize: 12
     }
