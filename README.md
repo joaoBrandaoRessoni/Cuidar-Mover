@@ -22,6 +22,16 @@ cd Cuidar-Mover
 
 3. Instale as dependências:
 npm install
+  
+4. Instale o mockoon
+Instale o mockoon https://mockoon.com/
+  
+5. Importe o arquivo "%5BFaculdade%5D Cuidar %26 Mover.json" para o Mockoon
+  
+6. Rode o servidor do mockoon[
 
-4. Inicie o projeto:
+7. Altere o .env
+Altere no .env a variável EXPO_PUBLIC_API_URL por "http://<IP DA MAQUINA>"
+
+8. Inicie o projeto:
 npx expo start
