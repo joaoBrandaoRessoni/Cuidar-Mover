@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -32,6 +32,8 @@ export const Login = () => {
                 message: 'Login feito com sucesso.',
                 type: 'success'
             });
+
+            navigation.navigate('Home')
             return;
         }
 
@@ -44,61 +46,62 @@ export const Login = () => {
             style={styles.background}
             resizeMode="cover"
         >
-            <View style={styles.overlay}>
-                <View style={styles.top}>
-                    <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} />
-                    <Text style={styles.titulo}>Acesse sua conta</Text>
-                </View>
-
-                <View style={styles.viewLogin}>
-                    <Input
-                        placeholder="E-mail"
-                        iconName="mail-outline"
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType={"email-address"}
-                    />
-
-                    <Input
-                        placeholder="Senha"
-                        iconName="lock-closed-outline"
-                        value={senha}
-                        onChangeText={setSenha}
-                        secureTextEntry={true}
-
-                    />
-
-                    <View style={{ alignItems: 'flex-end', paddingHorizontal: 35 }}>
-                        <TouchableOpacity onPress={() => navigation.navigate("ResetarSenha")}>
-                            <Text style={styles.txtVerde}>Recuperar Senha</Text>
-                        </TouchableOpacity>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <View style={styles.overlay}>
+                    <View style={styles.top}>
+                        <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} />
+                        <Text style={styles.titulo}>Acesse sua conta</Text>
                     </View>
 
-                    <Button
-                        title="Acessar"
-                        onPress={handleSubmit}
-                        color={colors.greenPrimary}
+                    <View style={styles.viewLogin}>
+                        <Input
+                            placeholder="E-mail"
+                            iconName="mail-outline"
+                            value={email}
+                            onChangeText={setEmail}
+                            keyboardType={"email-address"}
+                        />
+
+                        <Input
+                            placeholder="Senha"
+                            iconName="lock-closed-outline"
+                            value={senha}
+                            onChangeText={setSenha}
+                            secureTextEntry={true}
+
+                        />
+
+                        <View style={{ alignItems: 'flex-end', paddingHorizontal: 35 }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ResetarSenha")}>
+                                <Text style={styles.txtVerde}>Recuperar Senha</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Button
+                            title="Acessar"
+                            onPress={handleSubmit}
+                            color={colors.greenPrimary}
+                        />
+                    </View>
+
+                    <View style={styles.rodape}>
+                        <Text style={styles.txt}>Não possui uma conta?</Text>
+                        <Button
+                            title="Criar Conta"
+                            color="transparent"
+                            borderColor={colors.greenPrimary}
+                            textColor={colors.greenPrimary}
+                            onPress={() => navigation.navigate("Cadastrar")}
+                        />
+                    </View>
+                    <FeedbackCard
+                        type={feedback.type}
+                        message={feedback.message}
                     />
                 </View>
 
-                <View style={styles.rodape}>
-                    <Text style={styles.txt}>Não possui uma conta?</Text>
-                    <Button
-                        title="Criar Conta"
-                        color="transparent"
-                        borderColor={colors.greenPrimary}
-                        textColor={colors.greenPrimary}
-                        onPress={() => navigation.navigate("Cadastrar")}
-                    />
-                </View>
-                <FeedbackCard
-                    type={feedback.type}
-                    message={feedback.message}
-                />
-
-            </View>
-
-            <Footer />
+                <Footer />
+            </KeyboardAvoidingView>
         </ImageBackground>
 
     )
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(0,0,0,0.25)', // controla a escuridão 
+        backgroundColor: 'rgba(0,0,0,0.25)',
     },
 
     viewLogin: {

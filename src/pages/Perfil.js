@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from "../theme/colors";
 import Button from "../components/Button";
+import MetaSemanal from "../components/MetaModal";
 
 export const Perfil = () => {
 
@@ -39,20 +40,27 @@ export const Perfil = () => {
                 </View>
 
                 <Text style={styles.name}>Carolina Ribeiro</Text>
-                <Text style={styles.role}>Paciente</Text>
+
             </View>
+
 
             <View style={styles.cards}>
                 <View style={styles.card}>
                     <Ionicons name="checkmark-circle-outline" size={24} color={colors.greenPrimary} />
-                    <Text style={styles.cardText}>Sessões realizadas</Text>
+                    <Text style={styles.cardText}>24 sessões realizadas</Text>
                 </View>
 
                 <View style={styles.card}>
                     <Ionicons name="calendar-outline" size={24} color={colors.greenPrimary} />
                     <Text style={styles.cardText}>Próxima sessão</Text>
                 </View>
+                <View style={styles.card}>
+                    <Ionicons name="body-outline" size={24} color={colors.greenPrimary} />
+                    <Text style={styles.cardText}>Especialistas Ortopédicos</Text>
+                </View>
             </View>
+
+            <MetaSemanal />
 
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Configurações e Suporte</Text>
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingVertical: 20,
         paddingHorizontal: 10,
-        justifyContent: 'space-between'
+        justifyContent: 'space-evenly'
     },
 
     profileContainer: {
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     cards: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical: 20,
+        marginVertical: 5,
     },
 
     card: {
@@ -140,6 +148,7 @@ const styles = StyleSheet.create({
 
     section: {
         marginTop: 10,
+        paddingHorizontal: 10
     },
 
     sectionTitle: {
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     },
 
     list: {
-        backgroundColor: '#f9f9f9',
+        //    backgroundColor: '#f9f9f9',
         borderRadius: 10,
         paddingHorizontal: 10,
     },
