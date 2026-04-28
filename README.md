@@ -1,3 +1,27 @@
-# Cuidar-Mover
+<h1>🏥 Aplicativo Cuidar & Mover</h1>
 
-Link do figma https://www.figma.com/design/bOCqKfUZ8XrDoxMn7hKIvG/Untitled?node-id=0-1&t=spTAZuAIbVHoejuG-1
+Aplicação desenvolvida com o objetivo de facilitar o acesso a serviços de saúde, conectando usuários a especialistas, como fisioterapeutas e ortopedistas, de forma simples, rápida e intuitiva.
+
+### 📱 Sobre o Projeto
+
+O Cuidar & Mover é um aplicativo mobile focado na área da saúde, especialmente em cuidados físicos e reabilitação. A proposta é centralizar informações e funcionalidades que auxiliem usuários a encontrar profissionais e gerenciar seus cuidados.
+
+### 🛠️ Tecnologias Utilizadas
+* React Native
+* Expo
+
+### Link do figma: 
+https://www.figma.com/design/bOCqKfUZ8XrDoxMn7hKIvG/Untitled?node-id=0-1&t=spTAZuAIbVHoejuG-1
+
+### ⚙️ Como Executar
+1. Clone o repositório:
+git clone https://github.com/joaoBrandaoRessoni/Cuidar-Mover.git
+
+2. Acesse a pasta:
+cd Cuidar-Mover
+
+3. Instale as dependências:
+npm install
+
+4. Inicie o projeto:
+npx expo start
