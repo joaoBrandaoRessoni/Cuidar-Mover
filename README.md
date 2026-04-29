@@ -13,6 +13,14 @@ O Cuidar & Mover é um aplicativo mobile focado na área da saúde, especialment
 ### Link do figma: 
 https://www.figma.com/design/bOCqKfUZ8XrDoxMn7hKIvG/Untitled?node-id=0-1&t=spTAZuAIbVHoejuG-1
 
+### 📸 Telas do app
+<img alt="image" src="https://github.com/user-attachments/assets/e812b4cb-deac-4b3b-b852-0c4327096825" width="30%"  />
+<img alt="image" src="https://github.com/user-attachments/assets/8abc9954-528d-42d8-a9a8-58a4eb42e1c5" width="30%"  />
+<img alt="image" src="https://github.com/user-attachments/assets/55021363-840a-4abe-85ce-27aa5955f0c6" width="30%"  />
+<img alt="image" src="https://github.com/user-attachments/assets/9ef963e5-52ad-4b65-aff1-e9574fc294b4" width="30%"  />
+<img alt="image" src="https://github.com/user-attachments/assets/c61fe796-2432-4b2d-b237-5549ddabd753" width="30%"  />
+<img alt="image" src="https://github.com/user-attachments/assets/c0e2aa04-8255-4b3e-a404-820cf56dd4e9" width="30%"  />
+
 ### ⚙️ Como Executar
 1. Clone o repositório:
 git clone https://github.com/joaoBrandaoRessoni/Cuidar-Mover.git
