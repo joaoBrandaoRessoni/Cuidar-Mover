@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { Image, View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { Image, View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from "../theme/colors";
 import Button from "../components/Button";
@@ -8,8 +8,10 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
+const { width, height } = Dimensions.get('window');
+
 export const Perfil = ({ navigation }) => {
-    const [profile, setProfile] = useState({name: "", email: "", percentCompleted: 0})
+    const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -20,8 +22,8 @@ export const Perfil = ({ navigation }) => {
                 );
 
                 setProfile({
-                    name: response.data.profile.name, 
-                    email: response.data.profile.email, 
+                    name: response.data.profile.name,
+                    email: response.data.profile.email,
                     percentCompleted: response.data.weeklyProgress.percentCompleted
                 })
 
@@ -67,7 +69,7 @@ export const Perfil = ({ navigation }) => {
     ));
 
     return (
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
             <View style={styles.container}>
 
                 {/* PERFIL */}
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingVertical: 20,
+        paddingVertical: 10,
         paddingHorizontal: 10,
         justifyContent: 'space-evenly'
     },
@@ -202,7 +204,6 @@ const styles = StyleSheet.create({
     },
 
     list: {
-        //    backgroundColor: '#f9f9f9',
         borderRadius: 10,
         paddingHorizontal: 10,
     },
@@ -229,7 +230,8 @@ const styles = StyleSheet.create({
 
     version: {
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: 10,
+        padding: 10,
         color: '#999',
         fontSize: 12,
     },

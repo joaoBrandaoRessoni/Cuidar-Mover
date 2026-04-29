@@ -6,6 +6,8 @@ import Input from '../components/Input'
 import { colors } from '../theme/colors'
 import Footer from '../components/Footer';
 import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const { height, width } = Dimensions.get('window');
 
@@ -14,10 +16,20 @@ export const Cadastrar = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmeSenha, setConfirmeSenha] = useState('');
+    const [passwordVisibility, setPasswordVisibility] = useState(true);
+    const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
     const [feedback, setFeedback] = useState({
         message: '',
         type: 'error'
     });
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisibility(!passwordVisibility);
+    };
+
+    const toggleConfirmPasswordVisibility = () => {
+        setConfirmPasswordVisibility(!confirmPasswordVisibility);
+    };
 
     const handleSubmit = () => {
         if (!senha && !email) {
@@ -55,7 +67,7 @@ export const Cadastrar = () => {
         >
             <View style={styles.overlay}>
                 <View style={styles.top}>
-                    <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} />
+                    {/* <Image source={require("../../assets/imagens/logo.png")} style={styles.logo} /> */}
                     <Text style={styles.titulo}>Cadastre sua conta</Text>
                 </View>
 
@@ -68,21 +80,45 @@ export const Cadastrar = () => {
                         keyboardType={"email-address"}
                     />
 
-                    <Input
-                        placeholder="Senha"
-                        iconName="lock-closed-outline"
-                        value={senha}
-                        onChangeText={setSenha}
-                        secureTextEntry={true}
-                    />
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Input
+                            placeholder="Senha"
+                            iconName="lock-closed-outline"
+                            value={senha}
+                            onChangeText={setSenha}
+                            secureTextEntry={passwordVisibility}
+                        />
+                        <TouchableOpacity onPress={togglePasswordVisibility} style={{ alignItems: 'center', marginBottom: 15 }}>
+                            <Ionicons
+                                name={passwordVisibility ? 'eye-off-outline' : 'eye-outline'}
+                                size={20}
+                                color='#999'
+                                style={{ position: 'absolute', right: 50, alignItems: 'center' }}
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-                    <Input
-                        placeholder="Confirme sua senha"
-                        iconName="lock-closed-outline"
-                        value={confirmeSenha}
-                        onChangeText={setConfirmeSenha}
-                        secureTextEntry={true}
-                    />
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+
+
+                        <Input
+                            placeholder="Confirme sua senha"
+                            iconName="lock-closed-outline"
+                            value={confirmeSenha}
+                            onChangeText={setConfirmeSenha}
+                            secureTextEntry={confirmPasswordVisibility}
+                        />
+
+                        <TouchableOpacity onPress={toggleConfirmPasswordVisibility} style={{ alignItems: 'center', marginBottom: 15 }}>
+                            <Ionicons
+                                name={confirmPasswordVisibility ? 'eye-off-outline' : 'eye-outline'}
+                                size={20}
+                                color='#999'
+                                style={{ position: 'absolute', right: 50, alignItems: 'center' }}
+                            />
+                        </TouchableOpacity>
+
+                    </View>
 
                     <Button
                         title="Cadastrar"
@@ -91,7 +127,7 @@ export const Cadastrar = () => {
                     />
                 </View>
 
-                
+
                 <FeedbackCard
                     type={feedback.type}
                     message={feedback.message}
@@ -125,6 +161,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
@@ -132,12 +169,13 @@ const styles = StyleSheet.create({
     },
 
     viewLogin: {
-        gap: 24
+        gap: 25
     },
     top: {
         paddingTop: 10,
         alignItems: 'center',
-        gap: 10
+        gap: 10,
+        marginTop: 75
     },
     logo: {
         marginTop: 20
@@ -153,12 +191,12 @@ const styles = StyleSheet.create({
         color: colors.greenPrimary
     },
     rodape: {
-        paddingTop: 25
+        paddingTop: 50
     },
     txt: {
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
-        paddingVertical: 10
+        paddingVertical: 15
     }
 })
