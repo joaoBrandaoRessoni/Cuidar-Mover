@@ -69,7 +69,7 @@ export const Perfil = ({ navigation }) => {
     ));
 
     return (
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
             <View style={styles.container}>
 
                 {/* PERFIL */}
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingVertical: 20,
+        paddingVertical: 10,
         paddingHorizontal: 10,
         justifyContent: 'space-evenly'
     },
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     version: {
         textAlign: 'center',
         marginTop: 10,
-        padding: 15,
+        padding: 10,
         color: '#999',
         fontSize: 12,
     },

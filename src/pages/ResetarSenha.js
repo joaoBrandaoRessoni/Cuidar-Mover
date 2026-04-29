@@ -126,13 +126,13 @@ const styles = StyleSheet.create({
   },
   top: {
     alignItems: "center",
-    marginTop: 35 
+    marginTop: 70,
   },
   overlay: {
     backgroundColor: "rgba(0,0,0,0.25)",
     flex: 1,
     overflow: "hidden",
-    gap: 15
+    gap: 20
   },
   titulo: {
     fontSize: 20,

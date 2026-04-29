@@ -248,11 +248,12 @@ const styles = StyleSheet.create({
         fontWeight: 700,
         color: '#dcdcdc',
         textAlign: 'center',
+        paddingVertical: 10 ,
 
     },
     txtRedef: {
         color: colors.font,
-        paddingVertical: 10,
+        paddingBottom: 25,
         textAlign: 'center'
     },
     logo: {
