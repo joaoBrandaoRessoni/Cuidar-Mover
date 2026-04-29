@@ -66,10 +66,10 @@ export const ResetarSenha = ({ navigation }) => {
     >
       <View style={styles.overlay}>
         <View style={styles.top}>
-          <Image
+          {/* <Image
             source={require("../../assets/imagens/logo.png")}
             style={styles.logo}
-          />
+          /> */}
           <Text style={styles.titulo}>Recuperação de Senha</Text>
         </View>
 
@@ -126,11 +126,13 @@ const styles = StyleSheet.create({
   },
   top: {
     alignItems: "center",
+    marginTop: 35 
   },
   overlay: {
     backgroundColor: "rgba(0,0,0,0.25)",
     flex: 1,
     overflow: "hidden",
+    gap: 15
   },
   titulo: {
     fontSize: 20,

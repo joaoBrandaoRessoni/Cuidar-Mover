@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get("window");
 
@@ -16,10 +17,21 @@ export const Login = () => {
     const navigation = useNavigation();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
+    const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [feedback, setFeedback] = useState({
         message: "",
         type: "error",
     });
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true));
+        const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => setKeyboardVisible(false));
+        return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListener.remove();
+        };
+    }, []);
 
     useEffect(() => {
         const getAppId = async () => {
@@ -58,6 +70,10 @@ export const Login = () => {
         getAppId();
         verifyIfLogedIn();
     }, []);
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisibility(!passwordVisibility)
+    }
 
     const handleSubmit = async () => {
         if (!senha && !email) {
@@ -106,65 +122,87 @@ export const Login = () => {
     };
 
     return (
-        <ImageBackground
-            source={require("../../assets/imagens/capa.png")}
-            style={styles.background}
-            resizeMode="cover"
-        >
-            <View style={styles.overlay}>
-                <View style={styles.top}>
-                    <Image
-                        source={require("../../assets/imagens/logo.png")}
-                        style={styles.logo}
-                    />
-                    <Text style={styles.titulo}>Acesse sua conta</Text>
-                </View>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <ImageBackground
+                    source={require("../../assets/imagens/capa.png")}
+                    style={styles.background}
+                    resizeMode="cover"
+                >
+                    <View style={styles.overlay}>
+                        <View style={styles.top}>
+                            <Image
+                                source={require("../../assets/imagens/logo.png")}
+                                style={styles.logo}
+                            />
+                            <Text style={styles.titulo}>Acesse sua conta</Text>
+                        </View>
 
-                <View style={styles.viewLogin}>
-                    <Input
-                        placeholder="E-mail"
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType={"email-address"}
-                    />
+                        <View style={styles.viewLogin}>
+                            <Input
+                                placeholder="E-mail"
+                                iconName="mail-outline"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType={"email-address"}
+                            />
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
 
-                    <Input
-                        placeholder="Senha"
-                        value={senha}
-                        onChangeText={setSenha}
-                        secureTextEntry={true}
-                    />
+                                <Input
+                                    placeholder="Senha"
+                                    iconName="lock-closed-outline"
+                                    value={senha}
+                                    onChangeText={setSenha}
+                                    secureTextEntry={passwordVisibility}
+                                />
 
-                    <View style={{ alignItems: "flex-end", paddingHorizontal: 35 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("ResetarSenha")}
-                        >
-                            <Text style={styles.txtVerde}>Recuperar Senha</Text>
-                        </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={togglePasswordVisibility}
+                                    style={{ alignItems: 'center', marginBottom: 15 }}>
+                                    <Ionicons
+                                        name={passwordVisibility ? 'eye-off-outline' : 'eye-outline'}
+                                        size={20}
+                                        color='#999'
+                                        style={{ position: 'absolute', right: 50, alignItems: 'center' }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+
+
+                            <View style={{ alignItems: "flex-end", paddingHorizontal: 35 }}>
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate("ResetarSenha")}
+                                >
+                                    <Text style={styles.txtVerde}>Recuperar Senha</Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+                        </View>
+                        <View style={{marginVertical: 50}}>
+                            <Button
+                                title="Acessar"
+                                onPress={handleSubmit}
+                                color={colors.greenPrimary}
+                            />
+                        </View>
+                        <View style={styles.rodape}>
+                            <Text style={styles.txt}>Não possui uma conta?</Text>
+                            <Button
+                                title="Criar Conta"
+                                onPress={() => console.log("Clicou")}
+                                color="transparent"
+                                borderColor={colors.greenPrimary}
+                                textColor={colors.greenPrimary}
+                                onPress={() => navigation.navigate("Cadastrar")}
+                            />
+                        </View>
+                        <FeedbackCard type={feedback.type} message={feedback.message} />
+                        {/* <Footer /> */}
                     </View>
-
-                    <Button
-                        title="Acessar"
-                        onPress={handleSubmit}
-                        color={colors.greenPrimary}
-                    />
-                </View>
-
-                <View style={styles.rodape}>
-                    <Text style={styles.txt}>Não possui uma conta?</Text>
-                    <Button
-                        title="Criar Conta"
-                        onPress={() => console.log("Clicou")}
-                        color="transparent"
-                        borderColor={colors.greenPrimary}
-                        textColor={colors.greenPrimary}
-                        onPress={() => navigation.navigate("RecuperarAcesso")}
-                    />
-                </View>
-                <FeedbackCard type={feedback.type} message={feedback.message} />
-                <Footer />
-            </View>
-        </ImageBackground>
+                </ImageBackground>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -186,7 +224,7 @@ const styles = StyleSheet.create({
     },
 
     viewLogin: {
-        gap: width * 0.024,
+        gap: width * 0.08,
     },
     top: {
         paddingTop: 25,
