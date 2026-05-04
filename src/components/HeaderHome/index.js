@@ -14,7 +14,7 @@ export default function HeaderHome() {
         const getProfile = async () => {
             try {
                 const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/app/home/profile`
+                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`
                 );
 
                 setProfile({

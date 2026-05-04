@@ -7,18 +7,33 @@ import MetaSemanal from "../components/MetaModal";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+import useAuth from "../hooks/useAuth";
 
 const { width, height } = Dimensions.get('window');
 
 export const Perfil = ({ navigation }) => {
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
+    const { authenticate } = useAuth()
 
     useEffect(() => {
         const getProfile = async () => {
             try {
+                const token = await authenticate()
+
+                console.log(token)
+
+                if(!token){
+                    navigation.navigate("Login")
+                }
+                
                 const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/app/home/profile`
+                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
                 );
 
                 setProfile({
@@ -46,7 +61,8 @@ export const Perfil = ({ navigation }) => {
     }, [isFocused]);
 
     const logout = async () => {
-        await AsyncStorage.removeItem("access_token")
+        await AsyncStorage.removeItem("access")
+        await AsyncStorage.removeItem("refresh_access")
 
         navigation.navigate("Login")
     }

@@ -62,7 +62,7 @@ export const RecuperarAcesso = ({ navigation }) => {
         if (senha && confirmeSenha && codigo) {
             try {
                 const response = await axios.post(
-                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/reset-password`,
+                    `${process.env.EXPO_PUBLIC_API_URL}/auth/reset-password`,
                     {
                         email: email,
                         code: codigo,

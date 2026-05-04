@@ -36,7 +36,7 @@ export const ResetarSenha = ({ navigation }) => {
 
     try {
       const response = await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/forgot-password`,
+        `${process.env.EXPO_PUBLIC_API_URL}/auth/forgot-password`,
         {
           email: email,
         },

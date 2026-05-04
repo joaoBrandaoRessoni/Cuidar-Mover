@@ -10,12 +10,14 @@ import CardExercicio from "../components/CardExercicio";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+import useAuth from "../hooks/useAuth";
 
 export const Home = () => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
+    const { authenticate } = useAuth()
 
     const handleDesmarcar = () => {
         setModalVisible(true);
@@ -49,8 +51,19 @@ export const Home = () => {
     useEffect(() => {
         const getProfile = async () => {
             try {
+                const token = await authenticate()
+
+                if(!token){
+                    navigation.navigate("Login")
+                }
+
                 const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/app/home/profile`
+                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
                 );
 
                 setProfile({
