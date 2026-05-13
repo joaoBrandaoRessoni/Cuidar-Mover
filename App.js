@@ -6,6 +6,7 @@ import Navigation from './src/routes/Navigation';
 import { RecuperarAcesso } from './src/pages/RecuperarAcesso';
 import { Login } from './src/pages/Login';
 import Exercicios from './src/pages/Exercicios';
+import Feedback from './src/pages/Feedback';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +17,7 @@ export default function App() {
                 barStyle="dark-content"
                 backgroundColor="#fff"
             />
-            {/* <Navigation /> */}
-            <Exercicios />
+            <Navigation />
         </NavigationContainer>
     );
 }

@@ -139,7 +139,7 @@ export const Cadastrar = () => {
                         title="Voltar para o login"
                         onPress={() => navigation.navigate('Login')}
                         color="transparent"
-                        borderColor={colors.greenPrimary}
+                        borderColor={colors.green}
                         textColor={colors.greenPrimary}
                     />
                 </View>

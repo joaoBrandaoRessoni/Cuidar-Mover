@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -129,7 +129,7 @@ export const Login = () => {
                     style={styles.background}
                     resizeMode="cover"
                 >
-                    <View style={styles.overlay}>
+                    <ScrollView style={styles.overlay}>
                         <View style={styles.top}>
                             <Image
                                 source={require("../../assets/imagens/logo.png")}
@@ -179,7 +179,7 @@ export const Login = () => {
 
 
                         </View>
-                        <View style={{marginVertical: 50}}>
+                        <View style={{ marginVertical: 50 }}>
                             <Button
                                 title="Acessar"
                                 onPress={handleSubmit}
@@ -199,7 +199,7 @@ export const Login = () => {
                         </View>
                         <FeedbackCard type={feedback.type} message={feedback.message} />
                         {/* <Footer /> */}
-                    </View>
+                    </ScrollView>
                 </ImageBackground>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
         gap: width * 0.08,
     },
     top: {
-        paddingTop: height * 0.09,
+        paddingTop: height * 0.05,
         alignItems: "center",
         gap: 10,
     },

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 16,
         padding: 16,
         borderLeftWidth: 4,
-        borderLeftColor: colors.primary,
+        borderLeftColor: colors.greenPrimary,
     },
     dicaTexto: {
         fontSize: 14,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         width: 36,
         height: 36,
         borderRadius: 18,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.greenPrimary,
         alignItems: 'center',
         justifyContent: 'center',
     },

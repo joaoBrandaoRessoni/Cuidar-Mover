@@ -15,6 +15,7 @@ import { Agenda } from '../pages/Agenda';
 import { Progresso } from '../pages/Progresso';
 import { Perfil } from '../pages/Perfil';
 import Exercicios from '../pages/Exercicios';
+import Feedback from '../pages/Feedback';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -79,6 +80,11 @@ export default function Navigation() {
             <Stack.Screen
                 name='Exercicios'
                 component={Exercicios}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name='Feedback'
+                component={Feedback}
                 options={{ headerShown: false }}
             />
             <Stack.Screen

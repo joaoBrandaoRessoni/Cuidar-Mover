@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.greenPrimary,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     passoLinha: {
         width: 2,
-        backgroundColor: colors.primaryLight,
+        backgroundColor: colors.greenPrimary,
         borderRadius: 1,
         marginLeft: 0,
     },
