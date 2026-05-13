@@ -166,11 +166,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryLight,
         alignItems: 'center',
         justifyContent: 'center',
+       
     },
     backArrow: {
         fontSize: 18,
         color: colors.primary,
         fontWeight: '700',
+        marginBottom: 5
     },
     headerTitle: {
         fontSize: 16,
