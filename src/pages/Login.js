@@ -41,7 +41,7 @@ export const Login = () => {
                 console.log("process.env.EXPO_PUBLIC_API_URL", process.env.EXPO_PUBLIC_API_URL)
                 if (!id) {
                     const response = await axios.get(
-                        `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/apps`,
+                        `${process.env.EXPO_PUBLIC_API_URL}/auth/apps`,
                     );
 
                     console.log('response', response)
