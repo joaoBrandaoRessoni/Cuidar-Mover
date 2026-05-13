@@ -14,6 +14,7 @@ import { Home } from '../pages/Home';
 import { Agenda } from '../pages/Agenda';
 import { Progresso } from '../pages/Progresso';
 import { Perfil } from '../pages/Perfil';
+import Exercicios from '../pages/Exercicios';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,10 +55,10 @@ function MainTabNavigator() {
                 tabBarInactiveTintColor: colors.font
             })}
         >
-            <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home}  options={{ headerShown: false }} />
-            <Tab.Screen name='Agenda' component={Agenda}   options={{ headerShown: true }}/>
-            <Tab.Screen name='Progresso' component={Progresso}  options={{ headerShown: true }} />
-            <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }}  options={{ headerShown: true }} />
+            <Tab.Screen name='MainTabs' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
+            <Tab.Screen name='Agenda' component={Agenda} options={{ headerShown: true }} />
+            <Tab.Screen name='Progresso' component={Progresso} options={{ headerShown: true }} />
+            <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} options={{ headerShown: true }} />
         </Tab.Navigator>
     )
 }
@@ -70,13 +71,16 @@ export default function Navigation() {
                 component={Login}
                 options={{ headerShown: false }}
             />
-
             <Stack.Screen
-                name='Home'
+                name='MainTabs'
                 component={MainTabNavigator}
                 options={{ headerShown: false }}
             />
-
+            <Stack.Screen
+                name='Exercicios'
+                component={Exercicios}
+                options={{ headerShown: false }}
+            />
             <Stack.Screen
                 name='RecuperarAcesso'
                 component={RecuperarAcesso}
