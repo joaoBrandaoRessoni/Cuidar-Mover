@@ -7,12 +7,12 @@ export const InfoCard = ({ series, repeticoes }) => (
 
     <View style={styles.cards}>
         <View style={styles.card}>
-            <Text style={styles.infoIcon}>🔁</Text>
+            <Ionicons name="layers-outline" size={24} color={colors.primary} />
             <Text style={styles.cardText}>{series} Séries</Text>
         </View>
 
         <View style={styles.card}>
-            <Text style={styles.infoIcon}>⚡</Text>
+            <Ionicons name="repeat-outline" size={24} color={colors.primary} />
             <Text style={styles.cardText}>{repeticoes} Repetições</Text>
         </View>
 
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     infoValue: {
         fontSize: 26,
         fontWeight: '800',
-        color: colors.primary,
+        color: colors.greenPrimary,
     },
     infoSeparator: {
         width: 1,

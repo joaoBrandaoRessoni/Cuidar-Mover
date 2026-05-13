@@ -52,17 +52,7 @@ export default function Exercicios({ navigation }) {
 
     const handleConcluir = () => {
         setConcluido(true);
-        Alert.alert(
-            'Atividade Concluída! 🎉',
-            'Parabéns! Você completou o exercício. Continue assim!',
-            [
-                {
-                    text: 'Voltar',
-                    onPress: () => navigation?.goBack(),
-                    style: 'default',
-                },
-            ]
-        );
+        navigation.navigate('Feedback')
     };
 
     return (
@@ -162,15 +152,15 @@ const styles = StyleSheet.create({
     backButton: {
         width: 36,
         height: 36,
-        borderRadius: 18,
-        backgroundColor: colors.primaryLight,
+        //borderRadius: 18,
+        //backgroundColor: colors.primaryLight,
         alignItems: 'center',
         justifyContent: 'center',
-       
+
     },
     backArrow: {
         fontSize: 18,
-        color: colors.primary,
+        color: colors.greenPrimary,
         fontWeight: '700',
         marginBottom: 5
     },
@@ -210,7 +200,7 @@ const styles = StyleSheet.create({
     tagText: {
         fontSize: 10,
         fontWeight: '700',
-        color: colors.tagText,
+        color: colors.greenPrimary,
         letterSpacing: 0.8,
     },
 
@@ -235,13 +225,13 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
     },
     botaoConcluir: {
-        backgroundColor: colors.primary,
+        backgroundColor: colors.greenPrimary,
         borderRadius: 14,
         paddingVertical: 16,
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 3,
-        shadowColor: colors.primary,
+        shadowColor: colors.greenPrimary,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 8,

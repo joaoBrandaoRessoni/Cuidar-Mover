@@ -5,8 +5,7 @@ export const colors = {
     grayLight: '#dcdcdc',
     text: '#666666',
     light: '#eeeeee',
-
-
+    shadow: '#00000012',
     primary: '#2D7D46',
     primaryLight: '#E8F5EC',
     white: '#FFFFFF',
@@ -14,12 +13,15 @@ export const colors = {
     text: '#1A1A1A',
     textSecondary: '#6B7280',
     border: '#E5E7EB',
-    cardBg: '#FFFFFF',
     tagBg: '#E8F5EC',
-    tagText: '#2D7D46',
-    stepBg: '#2D7D46',
-    stepText: '#FFFFFF',
     tipBg: '#F0FAF4',
-    tipBorder: '#2D7D46',
+    primaryGreenLight: '#4CAF50',
+    primaryDark: '#1B5E20',
+    accent: '#66BB6A',
+    surfaceAlt: '#F0F4F0',
+    textSecondary: '#5A6B5A',
+    textMuted: '#8E9E8E',
+    border: '#D4E0D4',
+    borderLight: '#E8F0E8',
 
 }
