@@ -37,14 +37,10 @@ export const Login = () => {
         const getAppId = async () => {
             try {
                 const id = await AsyncStorage.getItem("appId")
-                console.log('id', id)
-                console.log("process.env.EXPO_PUBLIC_API_URL", process.env.EXPO_PUBLIC_API_URL)
                 if (!id) {
                     const response = await axios.get(
                         `${process.env.EXPO_PUBLIC_API_URL}/auth/apps`,
                     );
-
-                    console.log('response', response)
 
                     await AsyncStorage.setItem("appId", String(response.data[0].id));
                 }
@@ -60,9 +56,9 @@ export const Login = () => {
         };
 
         const verifyIfLogedIn = async () => {
-            const token = await AsyncStorage.getItem("access_token")
+            const refresh = await AsyncStorage.getItem("refresh_access")
 
-            if (token) {
+            if (refresh) {
                 navigation.navigate("MainTabs")
             }
         }
@@ -88,10 +84,8 @@ export const Login = () => {
             try {
                 const appId = await AsyncStorage.getItem("appId");
 
-                console.log("appId", appId)
-
                 const response = await axios.post(
-                    `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/login`,
+                    `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
                     {
                         email: email,
                         password: senha,
@@ -102,8 +96,14 @@ export const Login = () => {
 
                 AsyncStorage.setItem("access_token", response.data.access_token);
                 AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+                AsyncStorage.setItem("refresh_access", JSON.stringify({
+                    email: email,
+                    password: senha,
+                    accessMode: "APP",
+                    appId: parseInt(appId ?? "0"),
+                }))
 
-                navigation.navigate("Home")
+                navigation.navigate("MainTabs")
 
                 setFeedback({
                     message: "Login feito com sucesso.",

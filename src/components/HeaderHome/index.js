@@ -4,10 +4,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import useAuth from "../../hooks/useAuth";
 
 export default function HeaderHome() {
+    const navigation = useNavigation();
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
     const { authenticate } = useAuth();
