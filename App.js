@@ -5,8 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Navigation from './src/routes/Navigation';
 import { RecuperarAcesso } from './src/pages/RecuperarAcesso';
 import { Login } from './src/pages/Login';
-import Exercicios from './src/pages/Exercicios';
-import Feedback from './src/pages/Feedback';
+
 
 const Stack = createStackNavigator();
 
@@ -18,6 +17,7 @@ export default function App() {
                 backgroundColor="#fff"
             />
             <Navigation />
+
         </NavigationContainer>
     );
 }
