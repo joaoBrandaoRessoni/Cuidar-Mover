@@ -5,16 +5,31 @@ import { colors } from "../../theme/colors";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+import useAuth from "../../hooks/useAuth";
 
 export default function HeaderHome() {
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
+    const { authenticate } = useAuth();
 
     useEffect(() => {
+        if(!isFocused) return
+
         const getProfile = async () => {
             try {
+                const token = await authenticate();
+
+                if (!token) {
+                    navigation.navigate("Login");
+                }
+
                 const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`
+                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
                 );
 
                 setProfile({
