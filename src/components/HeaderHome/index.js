@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import useAuth from "../../hooks/useAuth";
 
 export default function HeaderHome() {

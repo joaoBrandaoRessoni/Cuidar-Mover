@@ -56,7 +56,7 @@ function MainTabNavigator() {
                 tabBarInactiveTintColor: colors.font
             })}
         >
-            <Tab.Screen name='MainTabs' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
+            <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
             <Tab.Screen name='Agenda' component={Agenda} options={{ headerShown: true }} />
             <Tab.Screen name='Progresso' component={Progresso} options={{ headerShown: true }} />
             <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} options={{ headerShown: true }} />
@@ -73,7 +73,7 @@ export default function Navigation() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name='MainTabs'
+                name='Home'
                 component={MainTabNavigator}
                 options={{ headerShown: false }}
             />
