@@ -17,11 +17,11 @@ export const Perfil = ({ navigation }) => {
     const { authenticate } = useAuth()
 
     useEffect(() => {
+        if(!isFocused) return
+
         const getProfile = async () => {
             try {
                 const token = await authenticate()
-
-                console.log(token)
 
                 if(!token){
                     navigation.navigate("Login")
