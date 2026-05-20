@@ -67,7 +67,7 @@ export const Home = () => {
         const token = await authenticate();
 
         if (!token) {
-          navigation.navigate("Login");
+            navigation.navigate("Login");
         }
 
         const response = await axios.get(
