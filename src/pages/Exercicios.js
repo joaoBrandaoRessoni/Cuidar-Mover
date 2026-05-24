@@ -60,7 +60,7 @@ export default function Exercicios({ navigation }) {
             <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
 
             {/* Header */}
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <TouchableOpacity
                     style={styles.backButton}
                     onPress={() => navigation?.goBack()}
@@ -69,7 +69,7 @@ export default function Exercicios({ navigation }) {
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Detalhe do Exercício</Text>
                 <View style={styles.headerRight} />
-            </View>
+            </View> */}
 
             <ScrollView
                 style={styles.scrollView}

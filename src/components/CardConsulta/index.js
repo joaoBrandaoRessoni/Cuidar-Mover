@@ -16,7 +16,7 @@ export default function CardConsulta({ title, text, local, icon, color, onDesmar
 
             <View >
                 <TouchableOpacity style={styles.btn} onPress={onDesmarcar}>
-                    <Text style={styles.txtBtn}>Desmarcar</Text>
+                    <Text style={styles.txtBtn}>Solicitar outra data</Text>
                 </TouchableOpacity>
             </View>
 

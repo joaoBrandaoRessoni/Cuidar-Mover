@@ -158,7 +158,7 @@ export const Home = () => {
             <View style={styles.modalContainer}>
               <Text style={styles.modalTitle}>Tem certeza?</Text>
 
-              <Text style={styles.modalText}>Deseja desmarcar a consulta?</Text>
+              <Text style={styles.modalText}>Deseja remarcar a consulta?</Text>
 
               <View style={styles.modalButtons}>
                 <TouchableOpacity
@@ -175,7 +175,7 @@ export const Home = () => {
                     setModalVisible(false);
                   }}
                 >
-                  <Text style={{ color: "#fff" }}>Desmarcar</Text>
+                  <Text style={{ color: "#fff" }}>Sim</Text>
                 </TouchableOpacity>
               </View>
             </View>
