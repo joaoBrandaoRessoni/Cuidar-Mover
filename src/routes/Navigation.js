@@ -11,7 +11,7 @@ import { ResetarSenha } from '../pages/ResetarSenha';
 import { colors } from '../theme/colors';
 import { Cadastrar } from '../pages/Cadastrar';
 import { Home } from '../pages/Home';
-import { Agenda } from '../pages/Agenda';
+import AgendaScreen from '../pages/Agenda';
 import { Progresso } from '../pages/Progresso';
 import { Perfil } from '../pages/Perfil';
 import Exercicios from '../pages/Exercicios';
@@ -58,7 +58,7 @@ function MainTabNavigator() {
             })}
         >
             <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
-            <Tab.Screen name='Agenda' component={Agenda} options={{ headerShown: true }} />
+            <Tab.Screen name='Agenda' component={AgendaScreen} options={{ headerShown: true }} />
             <Tab.Screen name='Exercícios' component={Exercicios} options={{ headerShown: true }} />
             <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} options={{ headerShown: true }} />
         </Tab.Navigator>
@@ -81,6 +81,11 @@ export default function Navigation() {
             <Stack.Screen
                 name='Exercicios'
                 component={Exercicios}
+                options={{ headerShown: true }}
+            />
+            <Stack.Screen
+                name='Agenda'
+                component={AgendaScreen}
                 options={{ headerShown: true }}
             />
             <Stack.Screen
