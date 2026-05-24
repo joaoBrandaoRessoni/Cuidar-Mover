@@ -1,13 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StatusBar,
-  StyleSheet,
-  FlatList,
-  Modal,
-} from "react-native";
+import { View, TouchableOpacity, Text, StatusBar, StyleSheet, FlatList, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MetaCardDiario from "../components/MetaCardDiario";
 import { Ionicons } from "@expo/vector-icons";
