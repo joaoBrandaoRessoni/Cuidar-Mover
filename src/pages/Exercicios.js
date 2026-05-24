@@ -60,7 +60,7 @@ export default function Exercicios({ navigation }) {
             <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
 
             {/* Header */}
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <TouchableOpacity
                     style={styles.backButton}
                     onPress={() => navigation?.goBack()}
@@ -69,7 +69,7 @@ export default function Exercicios({ navigation }) {
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Detalhe do Exercício</Text>
                 <View style={styles.headerRight} />
-            </View>
+            </View> */}
 
             <ScrollView
                 style={styles.scrollView}
@@ -99,14 +99,11 @@ export default function Exercicios({ navigation }) {
                     ))}
                 </View>
 
-                {/* Dica do Fisioterapeuta */}
                 <DicaFisioterapeuta dica={exercicioData.dicaFisioterapeuta} />
 
-                {/* Espaço antes do botão */}
                 <View style={{ height: 24 }} />
             </ScrollView>
 
-            {/* Botão Concluir Atividade */}
             <View style={styles.footerContainer}>
                 <TouchableOpacity
                     style={[
@@ -226,7 +223,7 @@ const styles = StyleSheet.create({
     },
     botaoConcluir: {
         backgroundColor: colors.greenPrimary,
-        borderRadius: 14,
+        borderRadius: 8,
         paddingVertical: 16,
         alignItems: 'center',
         justifyContent: 'center',

@@ -22,6 +22,7 @@ const Tab = createBottomTabNavigator();
 
 const ICONS = {
     'Home': 'home',
+    'Exercícios': 'barbell-outline',
     'Progresso': 'stats-chart',
     'Agenda': 'calendar',
     'Meu Perfil': 'person',
@@ -56,9 +57,9 @@ function MainTabNavigator() {
                 tabBarInactiveTintColor: colors.font
             })}
         >
-            <Tab.Screen name='MainTabs' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
+            <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
             <Tab.Screen name='Agenda' component={Agenda} options={{ headerShown: true }} />
-            <Tab.Screen name='Progresso' component={Progresso} options={{ headerShown: true }} />
+            <Tab.Screen name='Exercícios' component={Exercicios} options={{ headerShown: true }} />
             <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} options={{ headerShown: true }} />
         </Tab.Navigator>
     )
@@ -73,19 +74,19 @@ export default function Navigation() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name='MainTabs'
+                name='Home'
                 component={MainTabNavigator}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
                 name='Exercicios'
                 component={Exercicios}
-                options={{ headerShown: false }}
+                options={{ headerShown: true }}
             />
             <Stack.Screen
                 name='Feedback'
                 component={Feedback}
-                options={{ headerShown: false }}
+                options={{ headerShown: true }}
             />
             <Stack.Screen
                 name='RecuperarAcesso'
