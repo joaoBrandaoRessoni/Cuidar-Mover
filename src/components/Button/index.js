@@ -8,11 +8,13 @@ export default function Button({
     color = colors.greenPrimary,
     borderColor = colors.greenPrimary,
     borderWidth = 1,
-    textColor = 'white'
+    textColor = 'white',
+    disabled = false
 }) {
     return (
         <View style={styles.viewBotao}>
             <TouchableOpacity
+                disabled={disabled}
                 style={[
                     styles.button,
                     {

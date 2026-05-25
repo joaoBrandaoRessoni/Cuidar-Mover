@@ -18,6 +18,7 @@ export const Login = () => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [keyboardVisible, setKeyboardVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [feedback, setFeedback] = useState({
         message: "",
@@ -82,6 +83,7 @@ export const Login = () => {
 
         if (senha && email) {
             try {
+                setIsLoading(true)
                 const appId = await AsyncStorage.getItem("appId");
 
                 const response = await axios.post(
@@ -103,6 +105,8 @@ export const Login = () => {
                     appId: parseInt(appId ?? "0"),
                 }))
 
+                setIsLoading(false)
+
                 navigation.navigate("MainTabs")
 
                 setFeedback({
@@ -111,6 +115,7 @@ export const Login = () => {
                 });
                 return;
             } catch (error) {
+                setIsLoading(false)
                 setFeedback({
                     message: `${error}`,
                     type: "error",
@@ -181,6 +186,7 @@ export const Login = () => {
                         </View>
                         <View style={{ marginVertical: 50 }}>
                             <Button
+                                disabled={isLoading}
                                 title="Acessar"
                                 onPress={handleSubmit}
                                 color={colors.greenPrimary}
