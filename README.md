@@ -31,7 +31,7 @@ https://www.figma.com/design/bOCqKfUZ8XrDoxMn7hKIvG/Untitled?node-id=0-1&t=spTAZ
 <img alt="image" src="https://github.com/user-attachments/assets/50778a72-9b34-4305-a384-38c651fc7669" width="30%"  />
 <img alt="image" src="https://github.com/user-attachments/assets/17952c8e-2d67-4cdc-a8c1-fbb3b05a7ea3" width="30%"  />
 <img alt="image" src="https://github.com/user-attachments/assets/ff973f07-8d42-4d05-a1d7-df947b8561fb" width="30%"  />
-
+<img alt="image" src="https://github.com/user-attachments/assets/d066581a-f2de-4464-a8f0-0084bd18bc74" width="30%"  />
 
 ### ⚙️ Como Executar
 1. Clone o repositório:

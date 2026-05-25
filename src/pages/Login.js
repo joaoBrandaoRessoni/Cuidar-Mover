@@ -60,7 +60,7 @@ export const Login = () => {
             const refresh = await AsyncStorage.getItem("refresh_access")
 
             if (refresh) {
-                navigation.navigate("MainTabs")
+                navigation.navigate("Home")
             }
         }
 
@@ -107,7 +107,7 @@ export const Login = () => {
 
                 setIsLoading(false)
 
-                navigation.navigate("MainTabs")
+                navigation.navigate("Home")
 
                 setFeedback({
                     message: "Login feito com sucesso.",
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     overlay: {
-        ...StyleSheet.absoluteFillObject,
+       // ...StyleSheet.absoluteFillObject,
         backgroundColor: "rgba(0,0,0,0.25)", // controla a escuridão
     },
 

@@ -6,12 +6,12 @@ import Button from "../components/Button";
 import MetaSemanal from "../components/MetaModal";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, navigation } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
 
 const { width, height } = Dimensions.get('window');
 
-export const Perfil = ({ navigation }) => {
+export const Perfil = () => {
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
     const { authenticate } = useAuth()
