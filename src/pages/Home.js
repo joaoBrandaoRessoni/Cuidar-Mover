@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, StatusBar, StyleSheet, FlatList, Modal, Alert } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StatusBar,
+  StyleSheet,
+  FlatList,
+  Modal,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MetaCardDiario from "../components/MetaCardDiario";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,6 +20,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
+import useStorageTimeStamp from "../hooks/useStorageTimeStamp";
 
 export const Home = ({ route }) => {
   const navigation = useNavigation();
@@ -22,7 +32,8 @@ export const Home = ({ route }) => {
   });
   const isFocused = useIsFocused();
   const { authenticate, logOut } = useAuth();
-  const [exercicios, setExercicios] = useState([])
+  const [exercicios, setExercicios] = useState([]);
+  const { getItemFromAsyncStorage } = useStorageTimeStamp()
 
   const handleDesmarcar = () => {
     setModalVisible(true);
@@ -36,30 +47,58 @@ export const Home = ({ route }) => {
         const token = await authenticate();
 
         if (!token) {
-            await logOut(() => navigation.navigate("Login"))
+          await logOut(() => navigation.navigate("Login"));
+          return;
         }
 
-        const response = await axios.get(
-          `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        const profile = await getItemFromAsyncStorage("profile");
+
+        if (!profile) {
+          const response = await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             },
-          },
-        );
+          );
 
-        setProfile({
-          name: response.data.profile.name,
-          email: response.data.profile.email,
-          percentCompleted: response.data.weeklyProgress.percentCompleted,
-        });
+          const responseFoto = await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile/photo/${response.data.profile.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              responseType: "arraybuffer",
+            },
+          );
 
+          let searchProfile = {
+            name: response.data.profile.name,
+            email: response.data.profile.email,
+            percentCompleted: response.data.weeklyProgress.percentCompleted,
+            userId: response.data.profile.id,
+            userImage: responseFoto.request._response,
+          };
+
+          setProfile(searchProfile);
+        } else {
+          setProfile(profile);
+        }
       } catch (error) {
         if (error.response) {
-          if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
+          if (error.response.status == 401) {
+            await logOut(() => navigation.navigate("Login"));
+            return;
+          }
         }
 
-        Alert.alert("Erro", "Ocorreu um erro ao tentar buscar as informações do seu perfil")
+        console.log(error)
+
+        Alert.alert(
+          "Erro",
+          "Ocorreu um erro inesperado ao tentar buscar seu perfil",
+        );
       }
     };
 
@@ -68,7 +107,8 @@ export const Home = ({ route }) => {
         const token = await authenticate();
 
         if (!token) {
-            await logOut(() => navigation.navigate("Login"))
+          await logOut(() => navigation.navigate("Login"));
+          return;
         }
 
         const response = await axios.get(
@@ -80,24 +120,29 @@ export const Home = ({ route }) => {
           },
         );
 
-        let exer = response.data.items.map(e => {
+        let exer = response.data.items.map((e) => {
           return {
-            "id": e.prescriptionItemId,
-            "foto": require("../../assets/imagens/alogamento.png"),
-            "title": e.title,
-            "text": e.taxonomy.objective,
-            "status": e.completedToday ? "concluido" : "pendente"
-          }
-        })
+            id: e.prescriptionItemId,
+            foto: require("../../assets/imagens/alogamento.png"),
+            title: e.title,
+            text: e.taxonomy.objective,
+            status: e.completedToday ? "concluido" : "pendente",
+          };
+        });
 
-        setExercicios(exer)
-
+        setExercicios(exer);
       } catch (error) {
         if (error.response) {
-          if(error.response.status == 401) navigation.navigate("Login");
+          if (error.response.status == 401) {
+            await logOut(() => navigation.navigate("Login"));
+            return;
+          }
         }
 
-        Alert.alert("Erro", "Ocorreu um erro ao tentar buscar os seus exercícios")
+        Alert.alert(
+          "Erro",
+          "Ocorreu um erro ao tentar buscar os seus exercícios",
+        );
       }
     };
 
@@ -106,10 +151,10 @@ export const Home = ({ route }) => {
   }, [isFocused]);
 
   useEffect(() => {
-    if(route.params?.message && route.params?.level == "error"){
-      Alert.alert("Erro", route.params.message)
+    if (route.params?.message && route.params?.level == "error") {
+      Alert.alert("Erro", route.params.message);
     }
-  }, [])
+  }, []);
 
   return (
     <View style={{ paddingHorizontal: 10, marginVertical: 10, flex: 1 }}>
@@ -175,7 +220,7 @@ export const Home = ({ route }) => {
                 <TouchableOpacity
                   style={styles.btnConfirmar}
                   onPress={() => {
-                    navigation.navigate("DesmarcarConsulta")
+                    navigation.navigate("DesmarcarConsulta");
                     setModalVisible(false);
                   }}
                 >

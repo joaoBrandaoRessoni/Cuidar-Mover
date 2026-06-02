@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const useStorageTimeStamp = ({ timestampInMinutes = 5 }) => {
+const useStorageTimeStamp = ( timestampInMinutes = 5 ) => {
+  const baseTimestamp = timestampInMinutes
+
   const getItemFromAsyncStorage = async (key, ignoreTimeStamp) => {
     let result = await AsyncStorage.getItem(key);
 
@@ -16,7 +18,7 @@ const useStorageTimeStamp = ({ timestampInMinutes = 5 }) => {
   };
 
   const setItemToAsyncStorage = (key, object) => {
-    let timeStamp = timestampInMinutes * 60
+    let timeStamp = baseTimestamp * 60
 
     let currentDate = new Date().getTime();
 

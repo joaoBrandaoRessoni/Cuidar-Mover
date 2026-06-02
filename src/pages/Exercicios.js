@@ -37,6 +37,7 @@ export default function Exercicios({ navigation, route }) {
 
       if (!token) {
         await logOut(() => navigation.navigate("Login"))
+        return
       }
 
       const response = await axios.post(
@@ -53,7 +54,10 @@ export default function Exercicios({ navigation, route }) {
       navigation.navigate("Feedback", { id: response.data.executionId });
     } catch (error) {
       if (error.response) {
-        if(error.response.status == 401) await logOut(() => navigation.navigate("Login"));
+        if(error.response.status == 401){
+          await logOut(() => navigation.navigate("Login"));
+          return
+        }
       }
 
       navigation.navigate("Home", {
@@ -70,6 +74,7 @@ export default function Exercicios({ navigation, route }) {
 
         if (!token) {
           await logOut(() => navigation.navigate("Login"))
+          return
         }
 
         const response = await axios.get(
@@ -107,7 +112,10 @@ export default function Exercicios({ navigation, route }) {
         });
       } catch (error) {
         if (error.response) {
-          if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
+          if(error.response.status == 401){
+            await logOut(() => navigation.navigate("Login"))
+            return
+          }
         }
 
         navigation.navigate("Home", {

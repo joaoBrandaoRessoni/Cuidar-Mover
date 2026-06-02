@@ -3,7 +3,7 @@ import axios from "axios";
 
 const useAuth = () => {
   const authenticate = async () => {
-    let access = await AsyncStorage.getItem("access");
+    let access = await AsyncStorage.getItem("access_token");
 
     if (access) {
       access = JSON.parse(access);
@@ -24,19 +24,22 @@ const useAuth = () => {
       );
 
       AsyncStorage.setItem(
-        "access",
+        "access_token",
         JSON.stringify({
           token: response.data.access_token,
           timestamp: Date.now() + 15 * 60 * 1000,
         }),
       );
+
+      return response.data.access_token
     }
 
     return null;
   };
 
   const logOut = async (callback) => {
-    AsyncStorage.removeItem("access", callback)
+    await AsyncStorage.removeItem("refresh_access")
+    await AsyncStorage.removeItem("access", callback)
   }
 
   return { authenticate, logOut };

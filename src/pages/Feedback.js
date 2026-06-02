@@ -83,6 +83,7 @@ export default function Feedback({ navigation, route }) {
 
             if (!token) {
                 await logOut(() => navigation.navigate("Login"))
+                return
             }
             
             const response = await axios.post(
@@ -97,8 +98,6 @@ export default function Feedback({ navigation, route }) {
                     },
                 },
             );
-
-            console.log('Feedback enviado:', feedbackData);
 
             Alert.alert(
                 'Feedback Salvo! ✅',

@@ -35,7 +35,7 @@ export const Perfil = () => {
     userImage: null,
   });
   const isFocused = useIsFocused();
-  const [shouldGetProfile, setShouldGetProfile] = useState(true);
+  const [shouldGetProfile, setShouldGetProfile] = useState(false);
   const { authenticate, logOut } = useAuth();
   const navigation = useNavigation();
   const { getItemFromAsyncStorage, setItemToAsyncStorage } = useStorageTimeStamp()
@@ -56,16 +56,18 @@ export const Perfil = () => {
 
     const getProfile = async () => {
       try {
-        setShouldGetProfile(false);
         const token = await authenticate();
 
         if (!token) {
           await logOut(() => navigation.navigate("Login"))
+          return
         }
 
-        const profile = getItemFromAsyncStorage("profile")
+        console.log(shouldGetProfile)
 
-        if(!profile){
+        const profile = await getItemFromAsyncStorage("profile")
+
+        if(!profile || shouldGetProfile){
           const response = await axios.get(
             `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile`,
             {
@@ -97,20 +99,27 @@ export const Perfil = () => {
 
           setProfile(searchProfile);
 
+          setShouldGetProfile(false);
+
         }else{
           setProfile(profile);
         }
 
       } catch (error) {
         if (error.response) {
-          if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
+          if(error.response.status == 401){
+            await logOut(() => navigation.navigate("Login"))
+            return
+          }
         }
+
+        console.log(error)
 
         Alert.alert('Erro', 'Ocorreu um erro inesperado ao tentar buscar seu perfil');
       }
     };
 
-    shouldGetProfile && getProfile();
+    getProfile();
   }, [isFocused, shouldGetProfile]);
 
   const logout = async () => {
@@ -156,6 +165,7 @@ export const Perfil = () => {
 
       if (!token) {
         await logOut(() => navigation.navigate("Login"))
+        return
       }
 
       const response = await axios.post(
@@ -174,7 +184,10 @@ export const Perfil = () => {
       Alert.alert("Imagem Salva! ✅", "Sua imagem foi salva com sucesso.");
     } catch (error) {
       if (error.response) {
-        if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
+        if(error.response.status == 401){
+          await logOut(() => navigation.navigate("Login"))
+          return
+        }
       }
 
       Alert.alert("Erro", "Não foi possível salvar a foto. Tente novamente.");
@@ -223,7 +236,7 @@ export const Perfil = () => {
               source={
                 profile.userImage
                   ? { uri: `data:image/png;base64,${profile.userImage}` }
-                  : require("../../assets/imagens/fotoPerfil.png")
+                  : require("../../assets/imagens/imgperfil.jpg")
               }
               style={styles.image}
             />
