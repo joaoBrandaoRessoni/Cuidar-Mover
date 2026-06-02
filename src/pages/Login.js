@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -10,6 +10,7 @@ import FeedbackCard from '../components/FeedbackCard/FeedbackCard';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from '@expo/vector-icons';
+import useAuth from '../hooks/useAuth';
 
 const { height, width } = Dimensions.get("window");
 
@@ -24,6 +25,7 @@ export const Login = () => {
         message: "",
         type: "error",
     });
+    const { authenticate } = useAuth()
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => setKeyboardVisible(true));
@@ -60,7 +62,11 @@ export const Login = () => {
             const refresh = await AsyncStorage.getItem("refresh_access")
 
             if (refresh) {
-                navigation.navigate("Home")
+                const token = await authenticate()
+
+                if(token){
+                    navigation.navigate("Home")
+                }
             }
         }
 
@@ -96,7 +102,10 @@ export const Login = () => {
                     },
                 );
 
-                AsyncStorage.setItem("access_token", response.data.access_token);
+                AsyncStorage.setItem("access_token", JSON.stringify({
+                    token: response.data.access_token,
+                    timestamp: Date.now() + 15 * 60 * 1000
+                }));
                 AsyncStorage.setItem("user", JSON.stringify(response.data.user));
                 AsyncStorage.setItem("refresh_access", JSON.stringify({
                     email: email,

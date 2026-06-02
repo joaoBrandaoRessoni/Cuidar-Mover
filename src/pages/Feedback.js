@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, SafeAreaView, StatusBar, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 
 import { colors } from '../theme/colors';
+import useAuth from '../hooks/useAuth';
+import axios from 'axios';
 
 const PAIN_LEVELS = [
     {
@@ -51,10 +53,11 @@ const PAIN_LEVELS = [
     },
 ];
 
-export default function Feedback({ navigation }) {
+export default function Feedback({ navigation, route }) {
     const [selectedLevel, setSelectedLevel] = useState(null);
     const [observations, setObservations] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { authenticate, logOut } = useAuth();
 
     const handleSubmit = async () => {
         if (selectedLevel === null) {
@@ -76,7 +79,25 @@ export default function Feedback({ navigation }) {
         };
 
         try {
-            console.log('Feedback enviado:', feedbackData);
+            const token = await authenticate();
+
+            if (!token) {
+                await logOut(() => navigation.navigate("Login"))
+                return
+            }
+            
+            const response = await axios.post(
+                `${process.env.EXPO_PUBLIC_API_URL}/app/home/plan/executions/${route.params.id ?? ""}/feedback`,
+                {
+                    "score": PAIN_LEVELS[selectedLevel].value,
+                    "notes": observations.trim()
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
 
             Alert.alert(
                 'Feedback Salvo! ✅',
@@ -85,7 +106,7 @@ export default function Feedback({ navigation }) {
                     {
                         text: 'OK',
                         onPress: () => {
-                            if (navigation) navigation.goBack();
+                            if (navigation) navigation.navigate("Home");
                         },
                     },
                 ]

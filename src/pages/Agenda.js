@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Modal }
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import CardConsulta from '../components/CardConsulta';
+import { useNavigation } from '@react-navigation/native';
 
 const CONSULTAS = {
     '2026-05-07': [
@@ -43,6 +44,38 @@ const CONSULTAS = {
             local: 'Hospital Ortopédico',
         },
     ],
+    '2026-06-03': [
+        {
+            id: 6,
+            title: 'Dr. Pedro Nunes',
+            text: '08:00 · Ortopedia',
+            local: 'Hospital Ortopédico',
+        },
+    ],
+    '2026-06-10': [
+        {
+            id: 7,
+            title: 'Dr. Pedro Nunes',
+            text: '08:00 · Ortopedia',
+            local: 'Hospital Ortopédico',
+        },
+    ],
+    '2026-06-17': [
+        {
+            id: 8,
+            title: 'Dr. Pedro Nunes',
+            text: '08:00 · Ortopedia',
+            local: 'Hospital Ortopédico',
+        },
+    ],
+    '2026-06-24': [
+        {
+            id: 9,
+            title: 'Dr. Pedro Nunes',
+            text: '08:00 · Ortopedia',
+            local: 'Hospital Ortopédico',
+        },
+    ],
 };
 
 const WEEK_DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -71,6 +104,7 @@ export default function AgendaScreen() {
         new Date(today.getFullYear(), today.getMonth(), 1),
     );
     const [selectedKey, setSelectedKey] = useState(null);
+    const navigation = useNavigation()
 
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
@@ -202,13 +236,13 @@ export default function AgendaScreen() {
                                 style={styles.btnCancelar}
                                 onPress={() => setModalVisible(false)}
                             >
-                                <Text>Cancelar</Text>
+                                <Text>Não</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
                                 style={styles.btnConfirmar}
                                 onPress={() => {
-                                    console.log("Consulta desmarcada");
+                                    navigation.navigate("DesmarcarConsulta")
                                     setModalVisible(false);
                                 }}
                             >
