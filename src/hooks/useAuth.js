@@ -35,7 +35,11 @@ const useAuth = () => {
     return null;
   };
 
-  return { authenticate };
+  const logOut = async (callback) => {
+    AsyncStorage.removeItem("access", callback)
+  }
+
+  return { authenticate, logOut };
 };
 
 export default useAuth;

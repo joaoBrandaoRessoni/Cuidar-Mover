@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { colors } from "../../theme/colors";
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const STATUS_CONFIG = {
     concluido: {
@@ -24,11 +25,18 @@ const STATUS_CONFIG = {
     }
 };
 
-export default function CardExercicio({ title, text, status, foto }) {
+export default function CardExercicio({ id, title, text, status, foto }) {
 
     const config = STATUS_CONFIG[status];
 
-    console.log('config', config)
+    const navigation = useNavigation()
+
+    const handleNavigate = () => {
+        navigation.navigate("Exercícios", {
+            id: id,
+            status: status == "concluido" ? true : false
+        })
+    }
 
     return (
         <View style={styles.card}>
@@ -48,6 +56,7 @@ export default function CardExercicio({ title, text, status, foto }) {
                 </View>
 
                 <TouchableOpacity
+                    onPress={handleNavigate}
                     disabled={status === "bloqueado"}
                     style={[
                         styles.iconBtn,

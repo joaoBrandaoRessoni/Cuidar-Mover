@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, StatusBar, StyleSheet, FlatList, Modal } from "react-native";
+import { View, TouchableOpacity, Text, StatusBar, StyleSheet, FlatList, Modal, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MetaCardDiario from "../components/MetaCardDiario";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
 
-export const Home = () => {
+export const Home = ({ route }) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [profile, setProfile] = useState({
@@ -21,35 +21,12 @@ export const Home = () => {
     percentCompleted: 0,
   });
   const isFocused = useIsFocused();
-  const { authenticate } = useAuth();
+  const { authenticate, logOut } = useAuth();
+  const [exercicios, setExercicios] = useState([])
 
   const handleDesmarcar = () => {
     setModalVisible(true);
   };
-
-  const exercicios = [
-    {
-      id: "1",
-      foto: require("../../assets/imagens/alogamento.png"),
-      title: "Alongamento Cervical",
-      text: "3 séries x 30 seg.",
-      status: "concluido",
-    },
-    {
-      id: "2",
-      foto: require("../../assets/imagens/fortalecimento.png"),
-      title: "Fortalecimento Lombar",
-      text: "2 séries x 15 repetições",
-      status: "pendente",
-    },
-    {
-      id: "3",
-      foto: require("../../assets/imagens/mobilidade.png"),
-      title: "Mobilidade de Ombro",
-      text: "3 séries x 12 repetições",
-      status: "bloqueado",
-    },
-  ];
 
   useEffect(() => {
     if (!isFocused) return;
@@ -59,7 +36,7 @@ export const Home = () => {
         const token = await authenticate();
 
         if (!token) {
-            navigation.navigate("Login");
+            await logOut(() => navigation.navigate("Login"))
         }
 
         const response = await axios.get(
@@ -71,8 +48,6 @@ export const Home = () => {
           },
         );
 
-        console.log(response.data)
-
         setProfile({
           name: response.data.profile.name,
           email: response.data.profile.email,
@@ -80,25 +55,61 @@ export const Home = () => {
         });
 
       } catch (error) {
-        console.log(response);
-        console.log("Erro ao buscar perfil:", error);
-        console.log("Mensagem:", error.message);
-
-        console.log(error);
-
         if (error.response) {
-          console.log("Status:", error.response.status);
-          console.log("Resposta backend:", error.response.data);
-        } else if (error.request) {
-          console.log("Sem resposta do servidor.");
-        } else {
-          console.log("Erro inesperado.");
+          if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
         }
+
+        Alert.alert("Erro", "Ocorreu um erro ao tentar buscar as informações do seu perfil")
+      }
+    };
+
+    const getExercices = async () => {
+      try {
+        const token = await authenticate();
+
+        if (!token) {
+            await logOut(() => navigation.navigate("Login"))
+        }
+
+        const response = await axios.get(
+          `${process.env.EXPO_PUBLIC_API_URL}/app/home/plan/exercises`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        let exer = response.data.items.map(e => {
+          return {
+            "id": e.prescriptionItemId,
+            "foto": require("../../assets/imagens/alogamento.png"),
+            "title": e.title,
+            "text": e.taxonomy.objective,
+            "status": e.completedToday ? "concluido" : "pendente"
+          }
+        })
+
+        setExercicios(exer)
+
+      } catch (error) {
+        if (error.response) {
+          if(error.response.status == 401) navigation.navigate("Login");
+        }
+
+        Alert.alert("Erro", "Ocorreu um erro ao tentar buscar os seus exercícios")
       }
     };
 
     getProfile();
+    getExercices();
   }, [isFocused]);
+
+  useEffect(() => {
+    if(route.params?.message && route.params?.level == "error"){
+      Alert.alert("Erro", route.params.message)
+    }
+  }, [])
 
   return (
     <View style={{ paddingHorizontal: 10, marginVertical: 10, flex: 1 }}>
@@ -127,6 +138,7 @@ export const Home = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <CardExercicio
+                id={item.id}
                 foto={item.foto}
                 title={item.title}
                 text={item.text}
@@ -157,13 +169,13 @@ export const Home = () => {
                   style={styles.btnCancelar}
                   onPress={() => setModalVisible(false)}
                 >
-                  <Text>Cancelar</Text>
+                  <Text>Não</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.btnConfirmar}
                   onPress={() => {
-                    console.log("Consulta desmarcada");
+                    navigation.navigate("DesmarcarConsulta")
                     setModalVisible(false);
                   }}
                 >

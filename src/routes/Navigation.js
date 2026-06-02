@@ -16,6 +16,7 @@ import { Progresso } from '../pages/Progresso';
 import { Perfil } from '../pages/Perfil';
 import Exercicios from '../pages/Exercicios';
 import Feedback from '../pages/Feedback';
+import DesmarcarConsulta from '../pages/DesmarcarConsulta';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,7 +60,7 @@ function MainTabNavigator() {
         >
             <Tab.Screen name='Home' options={{ tabBarLabel: 'Início' }} component={Home} options={{ headerShown: false }} />
             <Tab.Screen name='Agenda' component={AgendaScreen} options={{ headerShown: true }} />
-            <Tab.Screen name='Exercícios' component={Exercicios} options={{ headerShown: true }} />
+            {/* <Tab.Screen name='Exercícios' component={Exercicios} options={{ headerShown: true }} /> */}
             <Tab.Screen name='Meu Perfil' component={Perfil} options={{ tabBarLabel: 'Perfil' }} options={{ headerShown: true }} />
         </Tab.Navigator>
     )
@@ -92,6 +93,11 @@ export default function Navigation() {
                 name='Feedback'
                 component={Feedback}
                 options={{ headerShown: true }}
+            />
+            <Stack.Screen
+                name='DesmarcarConsulta'
+                component={DesmarcarConsulta}
+                options={{ headerShown: true, title: "Desmarcar Consulta" }}
             />
             <Stack.Screen
                 name='RecuperarAcesso'

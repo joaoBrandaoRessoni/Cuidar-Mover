@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../theme/colors";
 import axios from "axios";
@@ -11,7 +11,7 @@ export default function HeaderHome() {
     const navigation = useNavigation();
     const [profile, setProfile] = useState({ name: "", email: "", percentCompleted: 0 })
     const isFocused = useIsFocused();
-    const { authenticate } = useAuth();
+    const { authenticate, logOut } = useAuth();
 
     useEffect(() => {
         if(!isFocused) return
@@ -21,7 +21,7 @@ export default function HeaderHome() {
                 const token = await authenticate();
 
                 if (!token) {
-                    navigation.navigate("Login");
+                    await logOut(() => navigation.navigate("Login"))
                 }
 
                 const response = await axios.get(
@@ -33,6 +33,16 @@ export default function HeaderHome() {
                     },
                 );
 
+                const responseFoto = await axios.get(
+                    `${process.env.EXPO_PUBLIC_API_URL}/app/home/profile/photo/${response.data.profile.id}`,
+                    {
+                        headers: {
+                        Authorization: `Bearer ${token}`,
+                        },
+                        responseType: "arraybuffer",
+                    },
+                );
+
                 setProfile({
                     name: response.data.profile.name,
                     email: response.data.profile.email,
@@ -40,17 +50,11 @@ export default function HeaderHome() {
                 })
 
             } catch (error) {
-                console.log("Erro ao buscar perfil:", error);
-                console.log("Mensagem:", error.message);
-
                 if (error.response) {
-                    console.log("Status:", error.response.status);
-                    console.log("Resposta backend:", error.response.data);
-                } else if (error.request) {
-                    console.log("Sem resposta do servidor.");
-                } else {
-                    console.log("Erro inesperado.");
+                    if(error.response.status == 401) await logOut(() => navigation.navigate("Login"))
                 }
+
+                Alert.alert("Erro", "Ocorreu um erro ao tentar buscar as informações do seu perfil")
             }
         };
 
