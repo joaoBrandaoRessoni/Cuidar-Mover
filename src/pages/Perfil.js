@@ -176,7 +176,7 @@ export const Perfil = () => {
                 formData,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        "Authorization": `Bearer ${token}`,
                         "Content-Type": "multipart/form-data",
                     }
                 },
@@ -186,6 +186,9 @@ export const Perfil = () => {
 
             Alert.alert("Imagem Salva! ✅", "Sua imagem foi salva com sucesso.");
         } catch (error) {
+            console.log('status:', error?.response?.status)
+            console.log('data:', error?.response?.data)
+            console.log('message:', error?.message)
             if (error.response) {
                 if (error.response.status == 401) {
                     await logOut(() => navigation.navigate("Login"))
@@ -232,7 +235,7 @@ export const Perfil = () => {
     return (
         <ScrollView style={{ flex: 1 }}>
             <View style={styles.container}>
-                {/* PERFIL */}
+
                 <View style={styles.profileContainer}>
                     <View style={styles.imageWrapper}>
 
