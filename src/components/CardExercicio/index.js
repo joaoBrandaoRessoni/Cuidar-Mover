@@ -32,7 +32,7 @@ export default function CardExercicio({ id, title, text, status, foto }) {
     const navigation = useNavigation()
 
     const handleNavigate = () => {
-        navigation.navigate("Exercícios", {
+        navigation.navigate("Exercicios", {
             id: id,
             status: status == "concluido" ? true : false
         })
@@ -42,7 +42,7 @@ export default function CardExercicio({ id, title, text, status, foto }) {
         <View style={styles.card}>
             <View style={styles.left}>
 
-                <Image source={foto} />
+                <Image source={foto} style={styles.foto} />
                 <View style={styles.exercicios}>
 
                     <Text style={styles.titulo}>{title}</Text>
@@ -92,10 +92,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3, // Opacidade da sombra no iOS
         shadowRadius: 3,
     },
+    foto: {
+        width: 55,
+        height: 55,
+        borderRadius: 8,
+    },
     titulo: {
         color: colors.greenPrimary,
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 16,
+        fontWeight: 'bold',
+
     },
     texto: {
         color: colors.text,
@@ -111,29 +117,28 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
         alignItems: 'center',
-        width: '70%'
-    },
-    exercicios: {
-        width: '60%',
-        paddingVertical: 5,
-        paddingHorizontal: 0,
-        flexDirection: 'column',
-        gap: 5,
-      
-
+        flex: 1,    
+        
     },
     right: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 0,
-        width: '35%',
-      
+        width: '30%',
     },
+    exercicios: {
+        width: '65%',
+        paddingVertical: 5,
+        paddingHorizontal: 0,
+        flexDirection: 'column',
+        gap: 5,
+    },
+
     badge: {
         paddingHorizontal: 10,
         paddingVertical: 4,
         borderRadius: 8,
-       
+
     },
     badgeText: {
         fontSize: 12,
@@ -146,6 +151,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        
+
     }
 })

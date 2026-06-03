@@ -10,7 +10,7 @@ const useStorageTimeStamp = ( timestampInMinutes = 5 ) => {
 
     let currentDate = new Date().getTime();
 
-    if (result.timestamp < currentDate && !ignoreTimeStamp) {
+    if (result?.timestamp < currentDate && !ignoreTimeStamp) {
       return null;
     }
 

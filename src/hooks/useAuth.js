@@ -8,7 +8,7 @@ const useAuth = () => {
     if (access) {
       access = JSON.parse(access);
 
-      if (Date.now() < access.timestamp) {
+      if (Date.now() < access?.timestamp) {
         return access.token;
       }
     }

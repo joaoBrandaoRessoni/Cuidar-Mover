@@ -86,6 +86,8 @@ export default function Exercicios({ navigation, route }) {
           },
         );
 
+        console.log('response esercicios', response)
+
         setExercicioData({
           titulo: response.data.title,
           categorias: [
